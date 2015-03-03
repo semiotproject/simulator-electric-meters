@@ -13,7 +13,10 @@ We use xml to manage application with properties:
 * `DeviationResistanceOnWire` - sets the deviation value of this resistance;
 * `CoapTTL`- Time To Live in ms for CoAP packages;
 * `CoapPort`.
-Run app and open `coap://localhost:5683/.well-known/core` with Copper after `StartDelay` seconds. The public CoAP interface is:
+
+Run app and open `coap://localhost:5683/.well-known/core` with Copper after `StartDelay` seconds. 
+The public CoAP interface is:
+
     `GET` or `OBSERVE` `/subscribe` to find all available meters, their addresses and current heat rate
     `GET` or `OBSERVE` `/subscribe/[0..$METERS-COUNT]` to find a particular meter
 

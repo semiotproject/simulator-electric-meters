@@ -18,20 +18,18 @@ import madkit.kernel.Agent;
 public abstract class Meter extends Agent {
 
     private static final COAP.TestimonialStore store = TestimonialStore.getInstance();
-    protected String manufacture_date;
-    protected String type;
-    protected String serverName;
-    protected String modelType;
-    protected String serialNumber;
-    protected String verificationDate;
-    protected String nextVerificationDate;
+    private String manufacture_date;
+    private String type;
+    private String serverName;
+    private String modelType;
+    private String serialNumber;
+    private String verificationDate;
+    private String nextVerificationDate;
     public static int nbOfMeterOnScreenX = 0;
     public static int nbOfMeterOnScreenY = 0;
     protected StateData data;
-    protected String group;
-    protected String group2;
-    protected String role2;
-    protected String role;
+    private String group;    
+    private String role;
     protected JPanel blinkPanel;
     private boolean stop;
 
@@ -110,33 +108,14 @@ public abstract class Meter extends Agent {
 
     public void setGroup(String group) {
         this.group = group;
-    }
-
-    public void setOptionGroup(String group) {
-        group2 = group;
-    }
-
-    public void setOptionRole(String role) {
-        role2 = role;
-    }
-
-    public String getOptionGroup() {
-        return group2;
-    }
-
-    public String getOptionRole() {
-        return role2;
-    }
+    }    
 
     @Override
     protected void activate() {
         stop = false;
         createGroupIfAbsent(EnergyOrganization.COMMUNITY, getGroup(), true, null);
         requestRole(EnergyOrganization.COMMUNITY, getGroup(), getRole(), null);
-        if (getOptionGroup() != null && getOptionRole() != null) {
-            createGroupIfAbsent(EnergyOrganization.COMMUNITY, getOptionGroup(), true, null);
-            requestRole(EnergyOrganization.COMMUNITY, getOptionGroup(), getOptionRole(), null);
-        }
+        
         if (logger != null) {
             logger.info("I am meter: \nmodel is " + getModelType() + " serial is " + getSerialNumber() + " Manufacture date is " + getManufactureDate() + "\n of " + group + " with role " + role + "!");
         }
@@ -149,18 +128,14 @@ public abstract class Meter extends Agent {
     @Override
     protected void end() {
         AbstractAgent.ReturnCode returnCode1;
-        AbstractAgent.ReturnCode returnCode2 = null;
-        if (getOptionGroup() != null) {
-            returnCode2 = leaveRole(EnergyOrganization.COMMUNITY, getOptionGroup(), getOptionRole());
-        }
         returnCode1 = leaveRole(EnergyOrganization.COMMUNITY, getGroup(), getRole());
-        if (returnCode1 == AbstractAgent.ReturnCode.SUCCESS && (returnCode2 == null || returnCode2 == AbstractAgent.ReturnCode.SUCCESS)) {
+        if (returnCode1 == AbstractAgent.ReturnCode.SUCCESS ) {
             if (logger != null) {
                 logger.info("I am leaving the artificial society");
             }
         } else {
             if (logger != null) {
-                logger.warning("something wrong when ending, return code is " + returnCode1 + (returnCode2 == null ? (" Code2 is " + returnCode2) : ""));
+                logger.warning("something wrong when ending, return code is " + returnCode1 );
             }
         }
         if (logger != null) {
@@ -180,12 +155,7 @@ public abstract class Meter extends Agent {
         int width = 450;
         int height = 300;
         JPanel p = new JPanel(new BorderLayout());
-        if (role2 == null) {
-            frame.setTitle(group + " " + role);
-        } else {
-            frame.setTitle(group2 + " " + role2);
-        }
-
+        frame.setTitle(group + " " + role);
         //customizing but still using the OutputPanel from MaDKit GUI
         p.add(new OutputPanel(this), BorderLayout.CENTER);
         blinkPanel = new JPanel();

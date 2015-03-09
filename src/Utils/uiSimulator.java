@@ -16,6 +16,7 @@ public class uiSimulator extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Energy simulator");
         setParamsToGui();
+        Topology.setEnabled(false);
     }
 
     private void setParamsToGui() {
@@ -58,6 +59,7 @@ public class uiSimulator extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         startDelay = new javax.swing.JSpinner();
         workDelay = new javax.swing.JSpinner();
+        Topology = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -123,19 +125,19 @@ public class uiSimulator extends javax.swing.JFrame {
 
         workDelay.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(2), Integer.valueOf(1), null, Integer.valueOf(1)));
 
+        Topology.setText("Топология");
+        Topology.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TopologyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(startBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(saveBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(loadBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +185,16 @@ public class uiSimulator extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(workDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(workDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(Topology)
+                        .addGap(18, 18, 18)
+                        .addComponent(startBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(saveBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(loadBtn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -221,12 +232,13 @@ public class uiSimulator extends javax.swing.JFrame {
                     .addComponent(startDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(workDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(startBtn)
                     .addComponent(loadBtn)
-                    .addComponent(saveBtn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(saveBtn)
+                    .addComponent(Topology))
+                .addContainerGap())
         );
 
         pack();
@@ -245,6 +257,7 @@ public class uiSimulator extends javax.swing.JFrame {
         nbOfMiddle.setEnabled(false);
         startDelay.setEnabled(false);
         workDelay.setEnabled(false);
+        Topology.setEnabled(true);
 
         double amper, volt, resist;
         int amperP, voltP, resistP, nbOfMid, nbOfCons, workDelay, startDelay;
@@ -290,6 +303,14 @@ public class uiSimulator extends javax.swing.JFrame {
         setParamsToGui();
     }//GEN-LAST:event_loadBtnActionPerformed
 
+    private void TopologyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopologyActionPerformed
+        JFileChooser fileopen = new JFileChooser();
+        int ret = fileopen.showDialog(null, "Save file");
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            LauncherSimulation.getTopology(fileopen.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_TopologyActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,6 +349,7 @@ public class uiSimulator extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Topology;
     private javax.swing.JSpinner amperage;
     private javax.swing.JSpinner amperagePersent;
     private javax.swing.JLabel jLabel1;

@@ -12,6 +12,9 @@ import static Utils.Generator.generateSerial;
 import madkit.kernel.Madkit;
 import Meter.Meter;
 import static Utils.Config.conf;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +25,11 @@ import java.util.logging.Logger;
  */
 public class LauncherSimulation extends Agent {
 
-    private static boolean haveGUI=true;
+    private static boolean haveGUI = true;
     private static ArrayList<Meter> agentsList = new ArrayList<>();
     private static COAP.Server server;
-    public static boolean exit = false;    
-    
+    public static boolean exit = false;
+
     @Override
     protected void activate() {
         Meter meter = new MeterOrigin();
@@ -41,8 +44,8 @@ public class LauncherSimulation extends Agent {
             meter.setMeter("mercury30", "mercury30", generateDate(), generateSerial());
             meter.setGroup(EnergyOrganization.METER_GROUP_ORIGIN);
             meter.setRole(EnergyOrganization.METER_ROLE_CONSUMER);
-            meter.setOptionGroup(EnergyOrganization.METER_GROUP_OPTION + i);
-            meter.setOptionRole(EnergyOrganization.METER_ROLE_ORIGIN);
+            ((MeterMiddle) meter).setOptionGroup(EnergyOrganization.METER_GROUP_OPTION + i);
+            ((MeterMiddle) meter).setOptionRole(EnergyOrganization.METER_ROLE_ORIGIN);
             agentsList.add(meter);
         }
 
@@ -79,12 +82,35 @@ public class LauncherSimulation extends Agent {
 
     public static void startSimulator(boolean _haveGUI) {
         exit = false;
-        haveGUI=_haveGUI;        
-        new Madkit(Madkit.Option.launchAgents.toString(), LauncherSimulation.class.getName() + "," + haveGUI + ",1");
+        haveGUI = _haveGUI;
+        new Madkit(Madkit.Option.launchAgents.toString(), LauncherSimulation.class.getName() + "," + false + ",1");
     }
 
     public static void stopSimulator() {
         exit = true;
+    }
+
+    public static void getTopology(String filename) {
+        String topology = "graph Topology{";
+        String origin = "\"Origin\"";
+        int k = 0;
+        for (Meter i : agentsList) {
+            if (i instanceof MeterMiddle) {
+                topology += "\n" + origin + "--" + "\"" + ((MeterMiddle) i).getOptionGroup() + "\";";
+            }
+            if (i instanceof MeterConsumer) {
+                topology += "\n" + "\"" + i.getGroup() + "\"" + "--" + "\"" + i.getRole() + k++ +"\";";
+            }
+        }
+        topology += "\n}";
+        File f = new File(filename);
+        try {
+            FileWriter writer = new FileWriter(f);
+            writer.write(topology);
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<config>
+	<AverageResistanceOnWire>7.5</AverageResistanceOnWire>
+	<CoapPort>80</CoapPort>
+	<DeviationAmperageConsumerPersent>60</DeviationAmperageConsumerPersent>
+	<AverageVoltageOrigin>220.0</AverageVoltageOrigin>
+	<CoapTTL>900001</CoapTTL>
+	<NumberOfMiddleMeter>5</NumberOfMiddleMeter>
+	<DeviationResistanceOnWirePersent>33</DeviationResistanceOnWirePersent>
+	<NumberOfConsumerMeter>10</NumberOfConsumerMeter>
+	<StartDelay>3000</StartDelay>
+	<WorkDelay>2000</WorkDelay>
+	<AverageAmperageConsumer>6.0</AverageAmperageConsumer>
+	<DeviationVoltageOriginPersent>5</DeviationVoltageOriginPersent>
+</config>

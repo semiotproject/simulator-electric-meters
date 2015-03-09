@@ -2,6 +2,7 @@ package Meter;
 
 import Utils.StateData;
 import java.util.List;
+import javax.swing.JFrame;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;
 
@@ -11,9 +12,44 @@ import madkit.message.StringMessage;
  */
 public class MeterMiddle extends Meter {
 
-    public MeterMiddle() {
+    private String group2;
+    private String role2;
+    
+    public void setOptionGroup(String group) {
+        group2 = group;
     }
 
+    public void setOptionRole(String role) {
+        role2 = role;
+    }
+
+    public String getOptionGroup() {
+        return group2;
+    }
+
+    public String getOptionRole() {
+        return role2;
+    }
+    public MeterMiddle() {
+    }
+    
+    public void createOption(){
+        if (getOptionGroup() != null && getOptionRole() != null) {
+            createGroupIfAbsent(EnergyOrganization.COMMUNITY, getOptionGroup(), true, null);
+            requestRole(EnergyOrganization.COMMUNITY, getOptionGroup(), getOptionRole(), null);
+        }
+    }
+    @Override
+    protected void activate(){
+        super.activate();
+        createOption();
+    }
+    
+    @Override
+    public void setupFrame(JFrame frame) {
+        super.setupFrame(frame);
+        frame.setTitle(getOptionGroup() + " " + getOptionRole());
+    }
     @Override
     protected void live() {
         while (isAlive()) {

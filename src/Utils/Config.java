@@ -41,7 +41,7 @@ public class Config {
         data.put("AverageResistanceOnWire", Double.toString(7.5));
         data.put("DeviationResistanceOnWirePersent", Integer.toString(33));
         data.put("CoapTTL", Integer.toString(900001));
-        data.put("CoapPort", Integer.toString(80));
+        data.put("CoapPort", Integer.toString(7000));
     }
 
     private void setAgents(int nbOfAgentsMiddle, int nbOfAgentsConsumer) {

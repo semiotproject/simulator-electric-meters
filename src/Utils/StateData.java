@@ -12,6 +12,7 @@ public class StateData {
     double Amperage;
     double Voltage;
     double Power;
+    long time;
 
     /**
      * Фукнция устанавливает значение аргументов
@@ -24,6 +25,7 @@ public class StateData {
         Amperage = (double) Math.round(amper * 1000) / 1000;
         Voltage = (double) Math.round(volt * 1000) / 1000;
         Power = (double) Math.round(Amperage * Voltage * 1000) / 1000;
+        time = System.currentTimeMillis() / 1000L;
     }
 
     /**
@@ -44,8 +46,8 @@ public class StateData {
 
     @Override
     public String toString() {      
-        return "\"Resistance\":" + Resistance + ",\"Amperage\":" + Amperage + ",\"Voltage\":" + Voltage + ",\"Power\":" + Power
-                + "\"DateTime\":" + Calendar.getInstance().getTime().toString();
+        return "\"Resistance\":" + Resistance + ",\"Amperage\":" + Amperage + 
+                ",\"Voltage\":" + Voltage + ",\"Power\":" + Power + "\"Time\":" + time;
     }
 
     /**
@@ -131,5 +133,8 @@ public class StateData {
 
     public double getVoltage() {
         return Voltage;
+    }
+    public long getTime(){
+        return time;
     }
 }

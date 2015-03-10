@@ -1,6 +1,6 @@
 package Utils;
 
-import COAP.Server;
+import COAP.CoAP;
 import Meter.EnergyOrganization;
 import Meter.MeterConsumer;
 import Meter.MeterMiddle;
@@ -27,11 +27,21 @@ public class LauncherSimulation extends Agent {
 
     private static boolean haveGUI = true;
     private static ArrayList<Meter> agentsList = new ArrayList<>();
-    private static COAP.Server server;
+    private static COAP.CoAP server;
     public static boolean exit = false;
+    //private static int[]pause;
+    //private static int count=0;
+    
+    //public static int getPause(){
+    //    return pause[count++];
+    //}
 
     @Override
     protected void activate() {
+        ///pause=new int[conf.getNbOfAgentsMiddle()+conf.getNbOfAgentsConsumer()];
+        //for(int i=0;i<pause.length;i++)
+          //  pause[i]=500+500*i;
+        server = new CoAP();
         Meter meter = new MeterOrigin();
         meter.setMeter("mercury30", "mercury30", generateDate(), generateSerial());
 
@@ -56,11 +66,7 @@ public class LauncherSimulation extends Agent {
             meter.setRole(EnergyOrganization.METER_ROLE_CONSUMER);
             agentsList.add(meter);
         }
-        try {
-            server = new Server();
-        } catch (SocketException ex) {
-            Logger.getLogger(LauncherSimulation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         agentsList.stream().forEach((i) -> {
             launchAgent(i, haveGUI);
         });
@@ -109,6 +115,7 @@ public class LauncherSimulation extends Agent {
             writer.write(topology);
             writer.close();
         } catch (IOException ex) {
+            System.out.print("Can't save topology!");
             ex.printStackTrace();
         }
     }

@@ -30,6 +30,7 @@ public class uiSimulator extends javax.swing.JFrame {
         resistancePersent.setValue(conf.getDeviationResistanceOnWirePersent());
         startDelay.setValue(conf.getStartDelay() / 1000);
         workDelay.setValue(conf.getWorkDelay() / 1000);
+        port.setValue(conf.getCoapPort());
     }
 
     @SuppressWarnings("unchecked")
@@ -60,6 +61,8 @@ public class uiSimulator extends javax.swing.JFrame {
         startDelay = new javax.swing.JSpinner();
         workDelay = new javax.swing.JSpinner();
         Topology = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        port = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -132,6 +135,10 @@ public class uiSimulator extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setText("Порт");
+
+        port.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(7000), null, null, Integer.valueOf(1)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,7 +155,11 @@ public class uiSimulator extends javax.swing.JFrame {
                                 .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(nbOfConsumer, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                                    .addComponent(nbOfMiddle)))
+                                    .addComponent(nbOfMiddle))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(port, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
@@ -161,8 +172,8 @@ public class uiSimulator extends javax.swing.JFrame {
                                             .addComponent(jLabel5))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(voltage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(amperage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(amperage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(voltage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -176,7 +187,8 @@ public class uiSimulator extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addGap(18, 18, 18)
-                                        .addComponent(resistancePersent, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(resistancePersent, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel9)
@@ -203,11 +215,13 @@ public class uiSimulator extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(nbOfMiddle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nbOfMiddle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(nbOfConsumer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nbOfConsumer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(port, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -257,8 +271,9 @@ public class uiSimulator extends javax.swing.JFrame {
         nbOfMiddle.setEnabled(false);
         startDelay.setEnabled(false);
         workDelay.setEnabled(false);
+        port.setEnabled(false);
         Topology.setEnabled(true);
-
+        
         double amper, volt, resist;
         int amperP, voltP, resistP, nbOfMid, nbOfCons, workDelay, startDelay;
         amper = (double) amperage.getValue();
@@ -271,7 +286,8 @@ public class uiSimulator extends javax.swing.JFrame {
         nbOfCons = (int) nbOfConsumer.getValue();
         startDelay = ((int) this.startDelay.getValue()) * 1000;
         workDelay = ((int) this.workDelay.getValue()) * 1000;
-        conf.setConfig(nbOfMid, nbOfCons, startDelay, workDelay, amper, amperP, volt, voltP, resist, resistP, 900001, 80);
+        int port = (int) this.port.getValue();
+        conf.setConfig(nbOfMid, nbOfCons, startDelay, workDelay, amper, amperP, volt, voltP, resist, resistP, 900001, port);
         Utils.LauncherSimulation.startSimulator(true);
     }//GEN-LAST:event_startBtnActionPerformed
 
@@ -286,7 +302,10 @@ public class uiSimulator extends javax.swing.JFrame {
         resistP = (int) resistancePersent.getValue();
         nbOfMid = (int) nbOfMiddle.getValue();
         nbOfCons = (int) nbOfConsumer.getValue();
-        conf.setConfig(nbOfMid, nbOfCons, 3000, 2000, amper, amperP, volt, voltP, resist, resistP, 900001, 80);
+        int port = (int) this.port.getValue();
+        int startDelay = ((int) this.startDelay.getValue()) * 1000;
+        int workDelay = ((int) this.workDelay.getValue()) * 1000;
+        conf.setConfig(nbOfMid, nbOfCons, startDelay, workDelay, amper, amperP, volt, voltP, resist, resistP, 900001, port);
         JFileChooser fileopen = new JFileChooser();
         int ret = fileopen.showDialog(null, "Save file");
         if (ret == JFileChooser.APPROVE_OPTION) {
@@ -319,6 +338,9 @@ public class uiSimulator extends javax.swing.JFrame {
             if (!args[1].isEmpty()) {
                 conf.setConfigFromFile(args[1]);
                 Utils.LauncherSimulation.startSimulator(false);
+                if(args.length>2 && !args[2].isEmpty()){
+                    LauncherSimulation.getTopology(args[2]);
+                }
             } else {
                 Utils.LauncherSimulation.startSimulator(false);
             }
@@ -354,6 +376,7 @@ public class uiSimulator extends javax.swing.JFrame {
     private javax.swing.JSpinner amperagePersent;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -365,6 +388,7 @@ public class uiSimulator extends javax.swing.JFrame {
     private javax.swing.JButton loadBtn;
     private javax.swing.JSpinner nbOfConsumer;
     private javax.swing.JSpinner nbOfMiddle;
+    private javax.swing.JSpinner port;
     private javax.swing.JSpinner resistance;
     private javax.swing.JSpinner resistancePersent;
     private javax.swing.JButton saveBtn;

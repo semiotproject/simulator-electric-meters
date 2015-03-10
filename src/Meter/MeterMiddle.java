@@ -68,7 +68,7 @@ public class MeterMiddle extends Meter {
                         EnergyOrganization.METER_ROLE_CONSUMER,
                         new StringMessage("Give me your amperage"),
                         EnergyOrganization.METER_ROLE_ORIGIN,
-                        900);
+                        5000);
             }
             if (noConsumer(requestData)) {
                 printString("I don't find consumer!");
@@ -90,7 +90,7 @@ public class MeterMiddle extends Meter {
                         EnergyOrganization.METER_ROLE_CONSUMER,
                         new StringMessage(Double.toString(trueReceivedVoltage)),
                         EnergyOrganization.METER_ROLE_ORIGIN,
-                        900);
+                        5000);
 
                 boolean createData = true;
                 for (Message i : requestData) {

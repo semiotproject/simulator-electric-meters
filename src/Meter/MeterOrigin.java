@@ -38,7 +38,7 @@ public class MeterOrigin extends Meter {
                         EnergyOrganization.METER_ROLE_CONSUMER,
                         new StringMessage(Double.toString(voltage)),
                         getRole(),
-                        1000);
+                        10000);
             }
 
             if (requestData == null) {

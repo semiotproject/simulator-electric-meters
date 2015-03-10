@@ -1,6 +1,7 @@
 package Meter;
 
 import COAP.TestimonialStore;
+import Utils.LauncherSimulation;
 import Utils.StateData;
 import java.util.Calendar;
 import java.awt.BorderLayout;
@@ -19,8 +20,7 @@ public abstract class Meter extends Agent {
 
     private static final COAP.TestimonialStore store = TestimonialStore.getInstance();
     private String manufacture_date;
-    private String type;
-    private String serverName;
+    private String type;    
     private String modelType;
     private String serialNumber;
     private String verificationDate;
@@ -74,16 +74,8 @@ public abstract class Meter extends Agent {
         return type;
     }
 
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setServer(String _serverName) {
-        serverName = _serverName;
-    }
-
-    public String getServerName() {
-        return serverName;
+    public int getSerialNumber() {
+        return Integer.parseInt(serialNumber);
     }
 
     public String getModelType() {
@@ -112,17 +104,18 @@ public abstract class Meter extends Agent {
 
     @Override
     protected void activate() {
+        //pause(LauncherSimulation.getPause());
         stop = false;
         createGroupIfAbsent(EnergyOrganization.COMMUNITY, getGroup(), true, null);
         requestRole(EnergyOrganization.COMMUNITY, getGroup(), getRole(), null);
-        
-        if (logger != null) {
-            logger.info("I am meter: \nmodel is " + getModelType() + " serial is " + getSerialNumber() + " Manufacture date is " + getManufactureDate() + "\n of " + group + " with role " + role + "!");
-        }
+        data=new StateData();
+        data.setData(3, 220);
+        setData();
+        printString("I am meter: \nmodel is " + getModelType() + " serial is " + getSerialNumber() + " Manufacture date is " + getManufactureDate() + "\n of " + group + " with role " + role + "!");
     }
 
     protected void setData() {
-        store.setData(getSerialNumber(), getData().toString());
+        store.setData(getSerialNumber(), getData());
     }
 
     @Override
@@ -147,6 +140,7 @@ public abstract class Meter extends Agent {
         if (logger != null) {
             logger.info(str);
         }
+        System.out.print(str);
 
     }
 

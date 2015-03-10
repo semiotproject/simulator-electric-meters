@@ -11,12 +11,12 @@ We use xml to manage application with properties:
 * `DeviationVoltageOrigin` - sets the deviation value of this voltage;
 * `AverageResistanceOnWire` - sets the average value of the resistance wires. The value does not depend more on any other factors;
 * `DeviationResistanceOnWire` - sets the deviation value of this resistance;
-* `CoapTTL`- Time To Live in ms for CoAP packages;
-* `CoapPort`.
+* `CoapPort` - initial port to host simulators.
 
-Run app and open `coap://localhost:5683/.well-known/core` with Copper after `StartDelay` seconds. 
-The public CoAP interface is:
+Run app and open `coap://localhost:[$START_PORT..$START_PORT + $METERS_COUNT]/.well-known/core` with [Copper](https://addons.mozilla.org/ru/firefox/addon/copper-270430/) after `StartDelay` ms. 
 
-    `GET` or `OBSERVE` `/subscribe` to find all available meters, their addresses and current heat rate
-    `GET` or `OBSERVE` `/subscribe/[0..$METERS-COUNT]` to find a particular meter
+- `/voltage` - get voltage in Turtle
+- `/amperage` - get amperage in Turtle
+- `/power` - get power in Turtle
+- `/` - get meter description in Turtle
 

@@ -1,9 +1,12 @@
 package COAP;
 
+import Utils.StateData;
+
 /**
- * Created by nikolay on 02.03.15.
+ *
+ * @author Даниил
  */
 public interface IListener {
-    public void onCreated(String id);
-    public void onUpdated(String id, String data);
+    public void onCreated(int id);
+    public void onUpdated(int id, StateData data);
 }

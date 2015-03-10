@@ -1,7 +1,7 @@
-package Meter;
+package ru.semiot.simulator.electricmeter;
 
-import Utils.Generator;
-import Utils.StateData;
+import ru.semiot.simulator.electricmeter.utils.Generator;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;
 

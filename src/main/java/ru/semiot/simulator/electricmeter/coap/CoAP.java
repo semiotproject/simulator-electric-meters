@@ -1,7 +1,7 @@
-package COAP;
+package ru.semiot.simulator.electricmeter.coap;
 
-import static Utils.Config.conf;
-import Utils.StateData;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package COAP;
+package ru.semiot.simulator.electricmeter.coap;
 
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.server.resources.Resource;

@@ -1,4 +1,4 @@
-package Utils;
+package ru.semiot.simulator.electricmeter.utils;
 
 import java.util.Calendar;
 

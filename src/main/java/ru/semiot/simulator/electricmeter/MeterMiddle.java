@@ -1,6 +1,6 @@
-package Meter;
+package ru.semiot.simulator.electricmeter;
 
-import Utils.StateData;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 import java.util.List;
 import javax.swing.JFrame;
 import madkit.kernel.Message;
@@ -78,7 +78,7 @@ public class MeterMiddle extends Meter {
                 for (Message i : requestData) {
                     totalAmperage += Double.parseDouble(((StringMessage) i).getContent());
                 }
-                double resistOnWire = Utils.Generator.generateRisistanceOnWire(totalAmperage);
+                double resistOnWire = ru.semiot.simulator.electricmeter.utils.Generator.generateRisistanceOnWire(totalAmperage);
                 trueReceivedVoltage -= resistOnWire * totalAmperage;
                 printString("I get voltage: " + trueReceivedVoltage);
                 printString("My group consumed:");

@@ -1,8 +1,8 @@
-package Meter;
+package ru.semiot.simulator.electricmeter;
 
-import Utils.Generator;
-import Utils.StateData;
-import static Utils.Config.conf;
+import ru.semiot.simulator.electricmeter.utils.Generator;
+import ru.semiot.simulator.electricmeter.utils.StateData;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import java.util.List;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;

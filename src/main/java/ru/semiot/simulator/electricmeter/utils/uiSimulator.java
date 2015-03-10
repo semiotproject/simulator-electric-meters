@@ -1,6 +1,6 @@
-package Utils;
+package ru.semiot.simulator.electricmeter.utils;
 
-import static Utils.Config.conf;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import javax.swing.JFileChooser;
 
 /**
@@ -288,7 +288,7 @@ public class uiSimulator extends javax.swing.JFrame {
         workDelay = ((int) this.workDelay.getValue()) * 1000;
         int port = (int) this.port.getValue();
         conf.setConfig(nbOfMid, nbOfCons, startDelay, workDelay, amper, amperP, volt, voltP, resist, resistP, 900001, port);
-        Utils.LauncherSimulation.startSimulator(true);
+        ru.semiot.simulator.electricmeter.utils.LauncherSimulation.startSimulator(true);
     }//GEN-LAST:event_startBtnActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
@@ -337,12 +337,12 @@ public class uiSimulator extends javax.swing.JFrame {
         if (args.length > 1 && args[0].equals("-nogui")) {
             if (!args[1].isEmpty()) {
                 conf.setConfigFromFile(args[1]);
-                Utils.LauncherSimulation.startSimulator(false);
+                ru.semiot.simulator.electricmeter.utils.LauncherSimulation.startSimulator(false);
                 if(args.length>2 && !args[2].isEmpty()){
                     LauncherSimulation.getTopology(args[2]);
                 }
             } else {
-                Utils.LauncherSimulation.startSimulator(false);
+                ru.semiot.simulator.electricmeter.utils.LauncherSimulation.startSimulator(false);
             }
 
         } else {

@@ -1,6 +1,6 @@
-package Utils;
+package ru.semiot.simulator.electricmeter.utils;
 
-import static Utils.Config.conf;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import java.util.ArrayList;
 import java.util.List;
 

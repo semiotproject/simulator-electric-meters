@@ -1,17 +1,17 @@
-package Utils;
+package ru.semiot.simulator.electricmeter.utils;
 
-import COAP.CoAP;
-import Meter.EnergyOrganization;
-import Meter.MeterConsumer;
-import Meter.MeterMiddle;
-import Meter.MeterOrigin;
+import ru.semiot.simulator.electricmeter.coap.CoAP;
+import ru.semiot.simulator.electricmeter.EnergyOrganization;
+import ru.semiot.simulator.electricmeter.MeterConsumer;
+import ru.semiot.simulator.electricmeter.MeterMiddle;
+import ru.semiot.simulator.electricmeter.MeterOrigin;
 import java.util.ArrayList;
 import madkit.kernel.Agent;
-import static Utils.Generator.generateDate;
-import static Utils.Generator.generateSerial;
+import static ru.semiot.simulator.electricmeter.utils.Generator.generateDate;
+import static ru.semiot.simulator.electricmeter.utils.Generator.generateSerial;
 import madkit.kernel.Madkit;
-import Meter.Meter;
-import static Utils.Config.conf;
+import ru.semiot.simulator.electricmeter.Meter;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class LauncherSimulation extends Agent {
 
     private static boolean haveGUI = true;
     private static ArrayList<Meter> agentsList = new ArrayList<>();
-    private static COAP.CoAP server;
+    private static ru.semiot.simulator.electricmeter.coap.CoAP server;
     public static boolean exit = false;
     //private static int[]pause;
     //private static int count=0;

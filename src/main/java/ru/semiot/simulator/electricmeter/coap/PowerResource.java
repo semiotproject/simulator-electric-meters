@@ -1,6 +1,6 @@
-package COAP;
+package ru.semiot.simulator.electricmeter.coap;
 
-import Utils.StateData;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.eclipse.californium.core.CoapResource;
@@ -12,46 +12,46 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  *
  * @author Даниил
  */
-public class AmperageResource extends CoapResource {
+public class PowerResource extends CoapResource {
 
     private final int id;
     private final int port;
 
-    public AmperageResource(int port, int id) {
-        super("amperage");
+    public PowerResource(int port, int id) {
+        super("power");
         this.id = id;
         this.port = port;
 
         setObservable(true);
-        getAttributes().setTitle("Endpoint for amperage testimonial ");
+        getAttributes().setTitle("Endpoint for power testimonial ");
         getAttributes().addResourceType("observe");
         getAttributes().setObservable();
         setObserveType(org.eclipse.californium.core.coap.CoAP.Type.CON);
     }
 
-    private String toTurtle(double amperage, long timestamp) {
+    private String toTurtle(double power, long timestamp) {
         String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date(timestamp * 1000));
 
         return "@prefix hmtr: <http://purl.org/NET/ssnext/electricmeters#>\n"
                 + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#>\n"
                 + "\n"
-                + String.format("<#amperage-%s-%d> a hmtr:AmperageObservation ;\n", id, timestamp)
+                + String.format("<#power-%s-%d> a hmtr:PowerObservation ;\n", id, timestamp)
                 + String.format("    ssn:observationResultTime “%s”^^xsd:dateTime ;\n", date)
                 + String.format("    ssn:observedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:observationResult <#amperage-%s-%d-%.2f> .\n", id, timestamp, amperage)
+                + String.format("    ssn:observationResult <#power-%s-%d-%.2f> .\n", id, timestamp, power)
                 + "\n"
-                + String.format("<#amperage-%s-%d-results> a hmtr:AmperageSensorOutput ;\n", id, timestamp)
+                + String.format("<#power-%s-%d-results> a hmtr:PowerSensorOutput ;\n", id, timestamp)
                 + String.format("    ssn:isProducedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:hasValue <#amperage-%s-%d-%.2f> .\n", id, timestamp, amperage)
+                + String.format("    ssn:hasValue <#power-%s-%d-%.2f> .\n", id, timestamp, power)
                 + "\n"
-                + String.format("<#amperage-%s-%d-resultvalue> a hmtr:AmperageValue ;\n", id, timestamp)
-                + String.format("    meter:hasQuantityValue “%.3f”^^xsd:float", amperage);
+                + String.format("<#power-%s-%d-resultvalue> a hmtr:PowerValue ;\n", id, timestamp)
+                + String.format("    meter:hasQuantityValue “%.3f”^^xsd:float", power);
     }
 
     @Override
     public void handleGET(CoapExchange exchange) {
         exchange.setMaxAge(5);
         StateData t = TestimonialStore.getInstance().getData(id);
-        exchange.respond(CONTENT, toTurtle(t.getAmperage(), t.getTime()), TEXT_PLAIN);
+        exchange.respond(CONTENT, toTurtle(t.getPower(), t.getTime()), TEXT_PLAIN);
     }
 }

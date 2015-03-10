@@ -1,8 +1,8 @@
-package Meter;
+package ru.semiot.simulator.electricmeter;
 
-import COAP.TestimonialStore;
-import Utils.LauncherSimulation;
-import Utils.StateData;
+import ru.semiot.simulator.electricmeter.coap.TestimonialStore;
+import ru.semiot.simulator.electricmeter.utils.LauncherSimulation;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 import java.util.Calendar;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
@@ -18,7 +18,7 @@ import madkit.kernel.Agent;
  */
 public abstract class Meter extends Agent {
 
-    private static final COAP.TestimonialStore store = TestimonialStore.getInstance();
+    private static final ru.semiot.simulator.electricmeter.coap.TestimonialStore store = TestimonialStore.getInstance();
     private String manufacture_date;
     private String type;    
     private String modelType;

@@ -1,6 +1,6 @@
-package COAP;
+package ru.semiot.simulator.electricmeter.coap;
 
-import Utils.StateData;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
  *

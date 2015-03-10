@@ -1,4 +1,4 @@
-package Meter;
+package ru.semiot.simulator.electricmeter;
 /**
  *
  * @author Даниил

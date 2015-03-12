@@ -38,11 +38,11 @@ public class PowerResource extends CoapResource {
                 + String.format("<#power-%s-%d> a hmtr:PowerObservation ;\n", id, timestamp)
                 + String.format("    ssn:observationResultTime “%s”^^xsd:dateTime ;\n", date)
                 + String.format("    ssn:observedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:observationResult <#power-%s-%d-%.2f> .\n", id, timestamp, power)
+                + String.format("    ssn:observationResult <#power-%s-%d-result> .\n", id, timestamp)
                 + "\n"
                 + String.format("<#power-%s-%d-results> a hmtr:PowerSensorOutput ;\n", id, timestamp)
                 + String.format("    ssn:isProducedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:hasValue <#power-%s-%d-%.2f> .\n", id, timestamp, power)
+                + String.format("    ssn:hasValue <#power-%s-%d-resultvalue> .\n", id, timestamp)
                 + "\n"
                 + String.format("<#power-%s-%d-resultvalue> a hmtr:PowerValue ;\n", id, timestamp)
                 + String.format("    meter:hasQuantityValue “%.3f”^^xsd:float", power);

@@ -38,11 +38,11 @@ public class VoltageResource extends CoapResource {
                 + String.format("<#voltage-%s-%d> a hmtr:VoltageObservation ;\n", id, timestamp)
                 + String.format("    ssn:observationResultTime “%s”^^xsd:dateTime ;\n", date)
                 + String.format("    ssn:observedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:observationResult <#voltage-%s-%d-%.2f> .\n", id, timestamp, voltage)
+                + String.format("    ssn:observationResult <#voltage-%s-%d-result> .\n", id, timestamp)
                 + "\n"
                 + String.format("<#voltage-%s-%d-results> a hmtr:VoltageSensorOutput ;\n", id, timestamp)
                 + String.format("    ssn:isProducedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:hasValue <#voltage-%s-%d-%.2f> .\n", id, timestamp, voltage)
+                + String.format("    ssn:hasValue <#voltage-%s-%d-resultvalue> .\n", id, timestamp)
                 + "\n"
                 + String.format("<#voltage-%s-%d-resultvalue> a hmtr:VoltageValue ;\n", id, timestamp)
                 + String.format("    meter:hasQuantityValue “%.3f”^^xsd:float", voltage);

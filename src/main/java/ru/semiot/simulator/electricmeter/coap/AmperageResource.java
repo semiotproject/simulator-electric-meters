@@ -38,11 +38,11 @@ public class AmperageResource extends CoapResource {
                 + String.format("<#amperage-%s-%d> a hmtr:AmperageObservation ;\n", id, timestamp)
                 + String.format("    ssn:observationResultTime “%s”^^xsd:dateTime ;\n", date)
                 + String.format("    ssn:observedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:observationResult <#amperage-%s-%d-%.2f> .\n", id, timestamp, amperage)
+                + String.format("    ssn:observationResult <#amperage-%s-%d-result> .\n", id, timestamp)
                 + "\n"
                 + String.format("<#amperage-%s-%d-results> a hmtr:AmperageSensorOutput ;\n", id, timestamp)
                 + String.format("    ssn:isProducedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:hasValue <#amperage-%s-%d-%.2f> .\n", id, timestamp, amperage)
+                + String.format("    ssn:hasValue <#amperage-%s-%d-resultvalue> .\n", id, timestamp)
                 + "\n"
                 + String.format("<#amperage-%s-%d-resultvalue> a hmtr:AmperageValue ;\n", id, timestamp)
                 + String.format("    meter:hasQuantityValue “%.3f”^^xsd:float", amperage);

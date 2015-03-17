@@ -5,10 +5,10 @@
 	<DeviationAmperageConsumerPersent>60</DeviationAmperageConsumerPersent>
 	<AverageVoltageOrigin>220.0</AverageVoltageOrigin>
 	<CoapTTL>900001</CoapTTL>
-	<NumberOfMiddleMeter>20</NumberOfMiddleMeter>
+	<NumberOfMiddleMeter>2</NumberOfMiddleMeter>
 	<DeviationResistanceOnWirePersent>33</DeviationResistanceOnWirePersent>
-	<NumberOfConsumerMeter>1000</NumberOfConsumerMeter>
-	<StartDelay>10000</StartDelay>
+	<NumberOfConsumerMeter>30</NumberOfConsumerMeter>
+	<StartDelay>2000</StartDelay>
 	<WorkDelay>10000</WorkDelay>
 	<AverageAmperageConsumer>6.0</AverageAmperageConsumer>
 	<DeviationVoltageOriginPersent>5</DeviationVoltageOriginPersent>

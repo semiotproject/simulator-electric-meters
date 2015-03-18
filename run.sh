@@ -1,7 +1,7 @@
 #!/bin/bash
 
-APP_DIR=./target
-APP_NAME=simulator-electric-meter-1.0-SNAPSHOT
+APP_DIR=./simulator
+APP_NAME=simulator-electric-meters-1.0-SNAPSHOT-jar-with-dependencies
 
 pushd $APP_DIR
 
@@ -11,7 +11,7 @@ mvn clean package -DskipTests=true
 
 wget ${SIMULATOR_CONFIG} -O ./configEnergy.xml
 
-java -jar ${APP_DIR}/${APP_NAME}.jar -nogui configEnergy.xml
+java -jar .target/${APP_NAME}.jar -nogui configEnergy.xml
 
 popd
 	

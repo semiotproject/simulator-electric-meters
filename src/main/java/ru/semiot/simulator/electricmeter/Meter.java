@@ -111,7 +111,7 @@ public abstract class Meter extends Agent {
         data=new StateData();
         data.setData(3, 220);
         setData();
-        printString("I am meter: \nmodel is " + getModelType() + " serial is " + getSerialNumber() + " Manufacture date is " + getManufactureDate() + "\n of " + group + " with role " + role + "!");
+        printString("I am meter: serial is " + getSerialNumber() + " of " + group + " with role " + role + "!\n");
     }
 
     protected void setData() {
@@ -137,9 +137,9 @@ public abstract class Meter extends Agent {
     }
 
     void printString(String str) {
-        if (logger != null) {
+        /*if (logger != null) {
             logger.info(str);
-        }
+        }*/
         System.out.print(str);
 
     }

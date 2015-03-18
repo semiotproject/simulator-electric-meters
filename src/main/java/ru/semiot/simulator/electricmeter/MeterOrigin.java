@@ -29,7 +29,7 @@ public class MeterOrigin extends Meter {
             }
             double voltage = Generator.generateVoltage();
 
-            printString("I get some voltage: " + voltage + " and send it");
+            //printString("I get some voltage: " + voltage + " and send it");
             List<Message> requestData = null;
             if (isRole(EnergyOrganization.COMMUNITY, EnergyOrganization.METER_GROUP_ORIGIN, EnergyOrganization.METER_ROLE_CONSUMER)) {
                 requestData = broadcastMessageWithRoleAndWaitForReplies(
@@ -58,10 +58,10 @@ public class MeterOrigin extends Meter {
                 if (createData) {
                     printString("I don't find consumer!");
                 } else {
-                    printString("Total consumed:");
-                    printString(data.toString());
+                    //printString("Total consumed:");
+                    //printString(data.toString());
                     setData();
-                    printString("All data consumered!");
+                    //printString("All data consumered!");
                 }
             } else {
                 printString("I don't find consumer!");

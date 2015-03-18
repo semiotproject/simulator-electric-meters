@@ -28,11 +28,10 @@ public class MeterConsumer extends Meter {
                     amperage = Generator.generateAmperage();
                     sendReplyWithRole(m, new StringMessage(Double.toString(amperage)), getRole());
                 } else {
-                    printString("I get request. \nI consumed:");
+                    //printString("I get request. \nI consumed:");
                     double resistance = Generator.generateRisistanceOnWire();
                     voltage = Double.parseDouble(((StringMessage) m).getContent()) - amperage * resistance;
                     data = StateData.createFromValue(amperage, voltage);
-                    printString(data.toString());
                     setData();
                     sendReplyWithRole(m, new StringMessage(data.getStringData()), getRole());
                 }

@@ -80,8 +80,8 @@ public class MeterMiddle extends Meter {
                 }
                 double resistOnWire = ru.semiot.simulator.electricmeter.utils.Generator.generateRisistanceOnWire(totalAmperage);
                 trueReceivedVoltage -= resistOnWire * totalAmperage;
-                printString("I get voltage: " + trueReceivedVoltage);
-                printString("My group consumed:");
+                //printString("I get voltage: " + trueReceivedVoltage);
+                //printString("My group consumed:");
                 requestData = null;
 
                 requestData = broadcastMessageWithRoleAndWaitForReplies(
@@ -104,10 +104,10 @@ public class MeterMiddle extends Meter {
                     }
                 }
                 if (createData) {
-                    printString("I don't find consumer!");
+                    //printString("I don't find consumer!");
                     sendReplyWithRole(m, new StringMessage("Haven't consumer"), getRole());
                 } else {
-                    printString(data.toString());
+                    //printString(data.toString());
                     setData();
                     sendReplyWithRole(m, new StringMessage(data.getStringData()), getRole());
                 }

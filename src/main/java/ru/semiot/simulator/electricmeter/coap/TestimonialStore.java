@@ -16,12 +16,14 @@ public class TestimonialStore {
     private static final Map<Integer, StateData> data = new HashMap<>();
     private static final TestimonialStore instance = new TestimonialStore();
     private static int externalID;
-    public static int getID(){
+
+    public static int getID() {
         return externalID;
     }
+
     public TestimonialStore() {
     }
-    
+
     public static TestimonialStore getInstance() {
         return instance;
     }
@@ -30,23 +32,26 @@ public class TestimonialStore {
         listeners.add(listener);
     }
 
-     public StateData getData(int id) {
-        if(data.containsKey(id))
-            return data.get(id);        
-        else return null;
+    public StateData getData(int id) {
+        if (data.containsKey(id)) {
+            return data.get(id);
+        } else {
+            return null;
+        }
     }
 
     public void setData(int _id, StateData _data) {
         if (!data.containsKey(_id)) {
             for (IListener l : listeners) {
-                externalID=_id;
+                externalID = _id;
                 l.onCreated(_id);
             }
-            
-        }
-        data.put(_id, _data.clone());
-        for (IListener l : listeners) {
-            l.onUpdated(_id, _data);
+            data.put(_id, _data.clone());
+        } else {
+            data.put(_id, _data.clone());
+            for (IListener l : listeners) {
+                l.onUpdated(_id, _data);
+            }
         }
 
     }

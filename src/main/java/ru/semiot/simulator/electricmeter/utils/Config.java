@@ -78,7 +78,7 @@ public class Config {
         setServer(CoapTTL, CoapPort);
     }
 
-    public void setConfigFromFile(String filename) {
+    public boolean setConfigFromFile(String filename) {
         try {
             File file = new File(filename);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -87,12 +87,14 @@ public class Config {
             for (String i : data.keySet()) {
                 data.put(i, doc.getElementsByTagName(i).item(0).getTextContent());
             }
+            return true;
         } catch (ParserConfigurationException | SAXException | IOException | DOMException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public void writeConfigToFile(String filename) {
+    public boolean writeConfigToFile(String filename) {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = dbf.newDocumentBuilder();
@@ -114,8 +116,10 @@ public class Config {
 
             StreamResult result = new StreamResult(new File(filename));
             transformer.transform(source, result);
+            return true;
         } catch (ParserConfigurationException | TransformerException ex) {
             ex.printStackTrace();
+            return false;
         }
     }
 

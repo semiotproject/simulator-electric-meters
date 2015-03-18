@@ -96,7 +96,7 @@ public class LauncherSimulation extends Agent {
         exit = true;
     }
 
-    public static void getTopology(String filename) {
+    public static boolean getTopology(String filename) {
         String topology = "graph Topology{";
         String origin = "\"Origin\"";
         int k = 0;
@@ -114,17 +114,30 @@ public class LauncherSimulation extends Agent {
             FileWriter writer = new FileWriter(f);
             writer.write(topology);
             writer.close();
+            return true;
         } catch (IOException ex) {
             System.out.print("Can't save topology!");
             ex.printStackTrace();
+            return false;
         }
     }
     public static void main(String args[]) {
-        if(args.length>1 && !args[0].isEmpty()){
-            conf.setConfigFromFile(args[1]);
+        if(args.length>=1 && !args[0].isEmpty()){
+            if(conf.setConfigFromFile(args[0]))
+                System.out.println("Data loaded");
+            else
+                System.out.println("Error. Data didn't load!");
+        }
+        else {
+            System.out.println("Start with default data");
+            if(! (args.length>=1))
+                System.out.println("Not input string");
+            else{
+                System.out.println(args[0]);
+            }
         }
         LauncherSimulation.startSimulator(false);
         if(args.length>2 && !args[1].isEmpty())
-            getTopology(args[2]);        
+            getTopology(args[1]);        
     }
 }

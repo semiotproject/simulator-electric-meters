@@ -9,11 +9,8 @@ git pull
 
 mvn clean package -DskipTests=true
 
-wget ${SIMULATOR_CONFIG} -O ./configEnergy.xml
+wget ${SIMULATOR_CONFIG} -O ../configEnergy.xml
 
-java -jar .target/${APP_NAME}.jar -nogui configEnergy.xml
+java -jar ${APP_DIR}/target/${APP_NAME}.jar ../configEnergy.xml
 
-popd
-	
-
-
+popds

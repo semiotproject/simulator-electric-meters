@@ -119,5 +119,12 @@ public class LauncherSimulation extends Agent {
             ex.printStackTrace();
         }
     }
-
+    public static void main(String args[]) {
+        if(args.length>1 && !args[0].isEmpty()){
+            conf.setConfigFromFile(args[1]);
+        }
+        LauncherSimulation.startSimulator(false);
+        if(args.length>2 && !args[1].isEmpty())
+            getTopology(args[2]);        
+    }
 }

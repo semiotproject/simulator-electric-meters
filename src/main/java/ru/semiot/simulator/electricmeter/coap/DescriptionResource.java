@@ -17,9 +17,9 @@ public class DescriptionResource extends CoapResource {
     public DescriptionResource(int id) {
         super("desc");
         this.id = id;
-        text = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#>\n"
+        text = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#>\n."
                 + "\n"
-                + "<#meter-" + Integer.toString(this.id) + "> a emtr:ElectricMeter.";
+                + "<http://example.com/resources/#meter-" + Integer.toString(this.id) + "> a emtr:ElectricMeter.";
         getAttributes().setTitle(text);
     }
     

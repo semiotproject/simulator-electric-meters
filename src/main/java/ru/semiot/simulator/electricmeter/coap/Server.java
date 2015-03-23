@@ -1,7 +1,6 @@
 package ru.semiot.simulator.electricmeter.coap;
 
 import org.eclipse.californium.core.CoapServer;
-import org.eclipse.californium.core.server.resources.Resource;
 
 /**
  *
@@ -15,11 +14,5 @@ public class Server extends CoapServer{
         super(port);
         this.id=_id;
         this.port=port;        
-    }
-    @Override
-    protected Resource createRoot(){
-        if(id==-1 || id==0)
-            return new DescriptionResource(_id);
-        else return new DescriptionResource(id);
     }
 }

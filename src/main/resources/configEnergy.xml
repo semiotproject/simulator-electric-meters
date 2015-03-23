@@ -3,8 +3,7 @@
 	<AverageResistanceOnWire>7.5</AverageResistanceOnWire>
 	<CoapPort>10000</CoapPort>
 	<DeviationAmperageConsumerPersent>60</DeviationAmperageConsumerPersent>
-	<AverageVoltageOrigin>220.0</AverageVoltageOrigin>
-	<CoapTTL>900001</CoapTTL>
+	<AverageVoltageOrigin>220.0</AverageVoltageOrigin>	
 	<NumberOfMiddleMeter>2</NumberOfMiddleMeter>
 	<DeviationResistanceOnWirePersent>33</DeviationResistanceOnWirePersent>
 	<NumberOfConsumerMeter>30</NumberOfConsumerMeter>
@@ -12,4 +11,5 @@
 	<WorkDelay>10000</WorkDelay>
 	<AverageAmperageConsumer>6.0</AverageAmperageConsumer>
 	<DeviationVoltageOriginPersent>5</DeviationVoltageOriginPersent>
+        <registerURI>coap://localhost:3131/register</registerURI>
 </config>

@@ -15,14 +15,17 @@ public class DescriptionResource extends CoapResource {
     private final String text;
 
     public DescriptionResource(int id) {
-        super("");
+        super("desc");
         this.id = id;
         text = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#>\n"
                 + "\n"
-                + "<#meter-" + Integer.toString(this.id) + "> a emtr:ElectricMeter .";
+                + "<#meter-" + Integer.toString(this.id) + "> a emtr:ElectricMeter.";
         getAttributes().setTitle(text);
     }
-
+    
+    public String getDescription(){
+        return text;
+    }
     @Override
     public void handleGET(CoapExchange exchange) {
         exchange.setMaxAge(5);

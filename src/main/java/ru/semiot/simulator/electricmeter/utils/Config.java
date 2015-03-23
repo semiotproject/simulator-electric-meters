@@ -39,9 +39,9 @@ public class Config {
         data.put("AverageVoltageOrigin", Double.toString(220));
         data.put("DeviationVoltageOriginPersent", Integer.toString(5));
         data.put("AverageResistanceOnWire", Double.toString(7.5));
-        data.put("DeviationResistanceOnWirePersent", Integer.toString(33));
-        data.put("CoapTTL", Integer.toString(900001));
+        data.put("DeviationResistanceOnWirePersent", Integer.toString(33));        
         data.put("CoapPort", Integer.toString(7000));
+        data.put("registerURI", "coap://localhost:3131/register");
     }
 
     private void setAgents(int nbOfAgentsMiddle, int nbOfAgentsConsumer) {
@@ -63,19 +63,19 @@ public class Config {
         data.put("DeviationResistanceOnWirePersent", Integer.toString(resistancePersent));
     }
 
-    private void setServer(int CoapTTL, int CoapPort) {
-        data.put("CoapTTL", Integer.toString(CoapTTL));
+    private void setServer(String CoapRegister, int CoapPort) {
+        data.put("registerURI", CoapRegister);
         data.put("CoapPort", Integer.toString(CoapPort));
     }
 
     public void setConfig(int nbOfAgentsMiddle, int nbOfAgentsConsumer,
             int startPause, int generatePause,
             double amperage, int amperagePersent, double voltage, int voltagePersent, double resistance, int resistancePersent,
-            int CoapTTL, int CoapPort) {
+            String CoapRegister, int CoapPort) {
         setAgents(nbOfAgentsMiddle, nbOfAgentsConsumer);
         setDelay(startPause, generatePause);
         setValues(amperage, amperagePersent, voltage, voltagePersent, resistance, resistancePersent);
-        setServer(CoapTTL, CoapPort);
+        setServer(CoapRegister, CoapPort);
     }
 
     public boolean setConfigFromFile(String filename) {
@@ -163,8 +163,8 @@ public class Config {
         return Double.parseDouble(data.get("AverageResistanceOnWire"));
     }
 
-    public int getCoapTTL() {
-        return Integer.parseInt(data.get("CoapTTL"));
+    public String getCoapRegister() {
+        return data.get("registerURI");
     }
 
     public int getCoapPort() {

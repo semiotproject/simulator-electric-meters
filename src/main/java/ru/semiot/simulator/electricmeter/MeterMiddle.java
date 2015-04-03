@@ -1,14 +1,14 @@
 package ru.semiot.simulator.electricmeter;
 
-import ru.semiot.simulator.electricmeter.utils.StateData;
 import java.util.List;
 import javax.swing.JFrame;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class MeterMiddle extends Meter {
 

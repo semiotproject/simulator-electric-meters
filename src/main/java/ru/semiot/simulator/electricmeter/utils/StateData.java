@@ -1,10 +1,8 @@
 package ru.semiot.simulator.electricmeter.utils;
 
-import java.util.Calendar;
-
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class StateData {
 
@@ -15,10 +13,10 @@ public class StateData {
     long time;
 
     /**
-     * Фукнция устанавливает значение аргументов
+     * Function sets value
      *
-     * @param amper Сила тока
-     * @param volt Напряжение
+     * @param amper Amperage
+     * @param volt Voltage
      */
     public void setData(double amper, double volt) {
         Resistance = (double) Math.round(volt / amper * 1000) / 1000;
@@ -76,9 +74,8 @@ public class StateData {
     }
 
     /**
-     * Сложение показаний счетчиков Складываются сопротивления, остальное
-     * расчитывается
-     *
+     * Added value of meters. 
+     * Added Amperage.
      * @param data
      * @return
      */

@@ -10,7 +10,7 @@ import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class PowerResource extends CoapResource {
 

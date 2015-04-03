@@ -1,12 +1,12 @@
 package ru.semiot.simulator.electricmeter.utils;
 
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import java.util.ArrayList;
 import java.util.List;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class Generator {
     private final static List<Integer> serials = new ArrayList<>();

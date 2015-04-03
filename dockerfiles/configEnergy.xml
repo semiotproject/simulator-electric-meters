@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <config>
 	<AverageResistanceOnWire>7.5</AverageResistanceOnWire>
-	<CoapPort>7000</CoapPort>
+	<CoapPort>30000</CoapPort>
 	<DeviationAmperageConsumerPersent>60</DeviationAmperageConsumerPersent>
 	<AverageVoltageOrigin>220.0</AverageVoltageOrigin>
 	<registerURI>coap://deviceproxyservice:3131/register</registerURI>

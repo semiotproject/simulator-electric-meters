@@ -1,15 +1,15 @@
 package ru.semiot.simulator.electricmeter;
 
-import ru.semiot.simulator.electricmeter.utils.Generator;
-import ru.semiot.simulator.electricmeter.utils.StateData;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import java.util.List;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import ru.semiot.simulator.electricmeter.utils.Generator;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class MeterOrigin extends Meter {
 

@@ -1,7 +1,7 @@
 package ru.semiot.simulator.electricmeter;
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public interface EnergyOrganization {
     public static final String      COMMUNITY                   =   "energy_smart_grid";

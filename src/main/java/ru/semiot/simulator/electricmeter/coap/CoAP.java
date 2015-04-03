@@ -1,7 +1,5 @@
 package ru.semiot.simulator.electricmeter.coap;
 
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
-import ru.semiot.simulator.electricmeter.utils.StateData;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +7,12 @@ import java.util.Map;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class CoAP implements IListener {
 

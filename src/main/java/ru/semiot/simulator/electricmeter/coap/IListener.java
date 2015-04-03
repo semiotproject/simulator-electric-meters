@@ -4,7 +4,7 @@ import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public interface IListener {
     public void onCreated(int id);

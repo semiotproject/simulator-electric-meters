@@ -1,14 +1,14 @@
 package ru.semiot.simulator.electricmeter.coap;
 
-import ru.semiot.simulator.electricmeter.utils.StateData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class TestimonialStore {
 

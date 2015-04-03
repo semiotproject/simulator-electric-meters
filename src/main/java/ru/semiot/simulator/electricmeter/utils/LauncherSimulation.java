@@ -1,49 +1,55 @@
 package ru.semiot.simulator.electricmeter.utils;
 
-import ru.semiot.simulator.electricmeter.coap.CoAP;
-import ru.semiot.simulator.electricmeter.EnergyOrganization;
-import ru.semiot.simulator.electricmeter.MeterConsumer;
-import ru.semiot.simulator.electricmeter.MeterMiddle;
-import ru.semiot.simulator.electricmeter.MeterOrigin;
-import java.util.ArrayList;
-import madkit.kernel.Agent;
-import static ru.semiot.simulator.electricmeter.utils.Generator.generateDate;
-import static ru.semiot.simulator.electricmeter.utils.Generator.generateSerial;
-import madkit.kernel.Madkit;
-import ru.semiot.simulator.electricmeter.Meter;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.SocketException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import madkit.kernel.Agent;
+import madkit.kernel.Madkit;
+import ru.semiot.simulator.electricmeter.EnergyOrganization;
+import ru.semiot.simulator.electricmeter.Meter;
+import ru.semiot.simulator.electricmeter.MeterConsumer;
+import ru.semiot.simulator.electricmeter.MeterMiddle;
+import ru.semiot.simulator.electricmeter.MeterOrigin;
+import ru.semiot.simulator.electricmeter.coap.CoAP;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import static ru.semiot.simulator.electricmeter.utils.Generator.generateSerial;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class LauncherSimulation extends Agent {
 
     private static boolean haveGUI = true;
-    private static ArrayList<Meter> agentsList = new ArrayList<>();
+    private static final ArrayList<Meter> agentsList = new ArrayList<>();
     private static ru.semiot.simulator.electricmeter.coap.CoAP server;
     public static boolean exit = false;
-    //private static int[]pause;
-    //private static int count=0;
-    
-    //public static int getPause(){
-    //    return pause[count++];
-    //}
-
+   
+    public static void main(String args[]) {
+        if(args.length>=1 && !args[0].isEmpty()){
+            if(conf.setConfigFromFile(args[0]))
+                System.out.println("Data loaded");
+            else
+                System.out.println("Error. Data didn't load!");
+        }
+        else {
+            System.out.println("Start with default data");
+            if(! (args.length>=1))
+                System.out.println("Not input string");
+            else{
+                System.out.println(args[0]);
+            }
+        }
+        LauncherSimulation.startSimulator(false);
+        if(args.length>=2 && !args[1].isEmpty())
+            getTopology(args[1]);        
+    }
     @Override
     protected void activate() {
-        ///pause=new int[conf.getNbOfAgentsMiddle()+conf.getNbOfAgentsConsumer()];
-        //for(int i=0;i<pause.length;i++)
-          //  pause[i]=500+500*i;
         server = new CoAP();
         Meter meter = new MeterOrigin();
-        meter.setMeter("mercury30", "mercury30", generateDate(), generateSerial());
+        meter.setMeter("mercury30", "mercury30", generateSerial());
 
         meter.setGroup(EnergyOrganization.METER_GROUP_ORIGIN);
         meter.setRole(EnergyOrganization.METER_ROLE_ORIGIN);
@@ -51,7 +57,7 @@ public class LauncherSimulation extends Agent {
         agentsList.add(meter);
         for (int i = 0; i < conf.getNbOfAgentsMiddle(); i++) {
             meter = new MeterMiddle();
-            meter.setMeter("mercury30", "mercury30", generateDate(), generateSerial());
+            meter.setMeter("mercury30", "mercury30", generateSerial());
             meter.setGroup(EnergyOrganization.METER_GROUP_ORIGIN);
             meter.setRole(EnergyOrganization.METER_ROLE_CONSUMER);
             ((MeterMiddle) meter).setOptionGroup(EnergyOrganization.METER_GROUP_OPTION + i);
@@ -61,7 +67,7 @@ public class LauncherSimulation extends Agent {
 
         for (int i = 0; i < conf.getNbOfAgentsConsumer(); i++) {
             meter = new MeterConsumer();
-            meter.setMeter("mercury30", "mercury30", generateDate(), generateSerial());
+            meter.setMeter("mercury30", "mercury30", generateSerial());
             meter.setGroup(EnergyOrganization.METER_GROUP_OPTION + (int) (conf.getNbOfAgentsMiddle() * Math.random()));
             meter.setRole(EnergyOrganization.METER_ROLE_CONSUMER);
             agentsList.add(meter);
@@ -74,15 +80,10 @@ public class LauncherSimulation extends Agent {
 
     @Override
     protected void live() {
-        while (!exit);
-        end();
     }
 
     @Override
     protected void end() {
-        pause(2000);
-        agentsList.stream().forEach((i) -> i.stop());
-        agentsList = null;
 
     }
 
@@ -120,24 +121,5 @@ public class LauncherSimulation extends Agent {
             ex.printStackTrace();
             return false;
         }
-    }
-    public static void main(String args[]) {
-        if(args.length>=1 && !args[0].isEmpty()){
-            if(conf.setConfigFromFile(args[0]))
-                System.out.println("Data loaded");
-            else
-                System.out.println("Error. Data didn't load!");
-        }
-        else {
-            System.out.println("Start with default data");
-            if(! (args.length>=1))
-                System.out.println("Not input string");
-            else{
-                System.out.println(args[0]);
-            }
-        }
-        LauncherSimulation.startSimulator(false);
-        if(args.length>2 && !args[1].isEmpty())
-            getTopology(args[1]);        
-    }
+    }    
 }

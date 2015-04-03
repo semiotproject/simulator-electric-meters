@@ -4,7 +4,7 @@ import org.eclipse.californium.core.CoapServer;
 
 /**
  *
- * @author Даниил
+ * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class Server extends CoapServer{
     private int id=TestimonialStore.getID();

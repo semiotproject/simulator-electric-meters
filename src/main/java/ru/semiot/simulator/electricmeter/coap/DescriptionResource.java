@@ -17,9 +17,10 @@ public class DescriptionResource extends CoapResource {
     public DescriptionResource(int id) {
         super("desc");
         this.id = id;
-        text = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#>\n."
-                + "\n"
-                + "<http://example.com/resources/#meter-" + Integer.toString(this.id) + "> a emtr:ElectricMeter.";
+        text = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                + "<http://example.com/resources/#meter-" + Integer.toString(this.id) + "> a emtr:ElectricMeter;\n"
+                + "rdfs:label \"Electric_Meter_№_"+ Integer.toString(this.id) +"\".";
         getAttributes().setTitle(text);
     }
     

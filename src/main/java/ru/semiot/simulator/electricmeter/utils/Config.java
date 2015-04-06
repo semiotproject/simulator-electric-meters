@@ -27,6 +27,7 @@ public class Config {
 
     private final Map<String, String> data;
     public static final Config conf = new Config();
+    private int port;
 
     private Config() {
         this.data = new HashMap<>();
@@ -39,9 +40,11 @@ public class Config {
         data.put("AverageVoltageOrigin", Double.toString(220));
         data.put("DeviationVoltageOriginPersent", Integer.toString(5));
         data.put("AverageResistanceOnWire", Double.toString(7.5));
-        data.put("DeviationResistanceOnWirePersent", Integer.toString(33));        
+        data.put("DeviationResistanceOnWirePersent", Integer.toString(33));
         data.put("CoapPort", Integer.toString(7000));
         data.put("registerURI", "coap://localhost:3131/register");
+        data.put("hostname", "localhost");
+        port = Integer.valueOf(data.get("CoapPort"));
     }
 
     private void setAgents(int nbOfAgentsMiddle, int nbOfAgentsConsumer) {
@@ -63,19 +66,21 @@ public class Config {
         data.put("DeviationResistanceOnWirePersent", Integer.toString(resistancePersent));
     }
 
-    private void setServer(String CoapRegister, int CoapPort) {
+    private void setServer(String CoapRegister, int CoapPort, String hostname) {
         data.put("registerURI", CoapRegister);
         data.put("CoapPort", Integer.toString(CoapPort));
+        data.put("hostname", hostname);
+        port = Integer.valueOf(data.get("CoapPort"));
     }
 
     public void setConfig(int nbOfAgentsMiddle, int nbOfAgentsConsumer,
             int startPause, int generatePause,
             double amperage, int amperagePersent, double voltage, int voltagePersent, double resistance, int resistancePersent,
-            String CoapRegister, int CoapPort) {
+            String CoapRegister, int CoapPort, String hostname) {
         setAgents(nbOfAgentsMiddle, nbOfAgentsConsumer);
         setDelay(startPause, generatePause);
         setValues(amperage, amperagePersent, voltage, voltagePersent, resistance, resistancePersent);
-        setServer(CoapRegister, CoapPort);
+        setServer(CoapRegister, CoapPort, hostname);
     }
 
     public boolean setConfigFromFile(String filename) {
@@ -87,6 +92,7 @@ public class Config {
             for (String i : data.keySet()) {
                 data.put(i, doc.getElementsByTagName(i).item(0).getTextContent());
             }
+            port = Integer.valueOf(data.get("CoapPort"));
             return true;
         } catch (ParserConfigurationException | SAXException | IOException | DOMException e) {
             e.printStackTrace();
@@ -171,4 +177,11 @@ public class Config {
         return Integer.parseInt(data.get("CoapPort"));
     }
 
+    public int getFreePort() {
+        return port++;
+    }
+
+    public String getHostName() {
+        return data.get("hostname");
+    }
 }

@@ -43,9 +43,9 @@ public class StateData {
     }
 
     @Override
-    public String toString() {      
-        return "\"Resistance\":" + Resistance + ",\"Amperage\":" + Amperage + 
-                ",\"Voltage\":" + Voltage + ",\"Power\":" + Power + "\"Time\":" + time;
+    public String toString() {
+        return "\"Resistance\":" + Resistance + ",\"Amperage\":" + Amperage
+                + ",\"Voltage\":" + Voltage + ",\"Power\":" + Power + "\"Time\":" + time;
     }
 
     /**
@@ -74,8 +74,8 @@ public class StateData {
     }
 
     /**
-     * Added value of meters. 
-     * Added Amperage.
+     * Added value of meters. Added Amperage.
+     *
      * @param data
      * @return
      */
@@ -131,7 +131,8 @@ public class StateData {
     public double getVoltage() {
         return Voltage;
     }
-    public long getTime(){
+
+    public long getTime() {
         return time;
     }
 }

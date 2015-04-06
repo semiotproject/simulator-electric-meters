@@ -6,7 +6,7 @@ import org.eclipse.californium.core.CoapResource;
 import static org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
 import static org.eclipse.californium.core.coap.MediaTypeRegistry.TEXT_PLAIN;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import ru.semiot.simulator.electricmeter.utils.StateData;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 
 /**
  *
@@ -14,44 +14,55 @@ import ru.semiot.simulator.electricmeter.utils.StateData;
  */
 public class PowerResource extends CoapResource {
 
-    private final int id;
     private final int port;
+    private double power;
+    private long timestamp;
+    private final String template = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .\n"
+            + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .\n"
+            + "@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .\n"
+            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+            + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .\n"
+            + "@prefix : <coap://${HOST}:${PORT}/meter/power#> .\n"
+            + "\n"
+            + ":${TIMESTAMP} a emtr:PowerObservation ;\n"
+            + "    ssn:observationResultTime \"${DATETIME}\"^^xsd:dateTime ;\n"
+            + "    ssn:observedBy <coap://${HOST}:${PORT}/meter> ;\n"
+            + "    ssn:observationResult :${TIMESTAMP}-result .\n"
+            + "\n"
+            + ":${TIMESTAMP}-result a emtr:PowerSensorOutput ;\n"
+            + "    ssn:isProducedBy <coap://${HOST}:${PORT}/meter> ;\n"
+            + "    ssn:hasValue :${TIMESTAMP}-resultvalue .\n"
+            + "\n"
+            + ":${TIMESTAMP}-resultvalue a emtr:PowerValue ;\n"
+            + "    meter:hasQuantityValue \"${VALUE}\"^^xsd:float .";
 
-    public PowerResource(int port, int id) {
-        super("power");
-        this.id = id;
+    public PowerResource(int port) {
+        super("obs");
+
         this.port = port;
 
         setObservable(true);
-        getAttributes().setTitle("Endpoint for power testimonial ");
-        getAttributes().addResourceType("observe");
         getAttributes().setObservable();
-        setObserveType(org.eclipse.californium.core.coap.CoAP.Type.CON);
+    }
+
+    public void setValues(double power, long timestamp) {
+        this.power = power;
+        this.timestamp = timestamp;
     }
 
     private String toTurtle(double power, long timestamp) {
         String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date(timestamp * 1000));
 
-        return "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#>\n"
-                + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#>\n"
-                + "\n"
-                + String.format("<#power-%s-%d> a emtr:PowerObservation ;\n", id, timestamp)
-                + String.format("    ssn:observationResultTime “%s”^^xsd:dateTime ;\n", date)
-                + String.format("    ssn:observedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:observationResult <#power-%s-%d-result> .\n", id, timestamp)
-                + "\n"
-                + String.format("<#power-%s-%d-results> a emtr:PowerSensorOutput ;\n", id, timestamp)
-                + String.format("    ssn:isProducedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:hasValue <#power-%s-%d-resultvalue> .\n", id, timestamp)
-                + "\n"
-                + String.format("<#power-%s-%d-resultvalue> a emtr:PowerValue ;\n", id, timestamp)
-                + String.format("    meter:hasQuantityValue “%.3f”^^xsd:float", power);
+        return template
+                .replace("${TIMESTAMP}", String.valueOf(timestamp))
+                .replace("${DATETIME}", date)
+                .replace("${HOST}", conf.getHostName())
+                .replace("${PORT}", String.valueOf(this.port))
+                .replace("${VALUE}", String.valueOf(power));
     }
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        exchange.setMaxAge(5);
-        StateData t = TestimonialStore.getInstance().getData(id);
-        exchange.respond(CONTENT, toTurtle(t.getPower(), t.getTime()), TEXT_PLAIN);
+        exchange.respond(CONTENT, toTurtle(power, timestamp), TEXT_PLAIN);
     }
 }

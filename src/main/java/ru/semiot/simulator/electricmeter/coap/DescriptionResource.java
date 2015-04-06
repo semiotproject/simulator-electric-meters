@@ -4,6 +4,7 @@ import org.eclipse.californium.core.CoapResource;
 import static org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
 import static org.eclipse.californium.core.coap.MediaTypeRegistry.TEXT_HTML;
 import org.eclipse.californium.core.server.resources.CoapExchange;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 
 /**
  *
@@ -11,53 +12,51 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  */
 public class DescriptionResource extends CoapResource {
 
-    private final int id;
-    private final String desc;
+    private final int port;
+    private final String desccription;
 
-    public DescriptionResource(int id) {
-        super("desc");
-        this.id = id;
-        desc = ("@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .\n"
+    public DescriptionResource(int port) {
+        super("meter");
+        this.port = port;
+        this.desccription = ("@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .\n"
                 + "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .\n"
                 + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
                 + "@prefix ssncom: <http://purl.org/NET/ssnext/communication#> .\n"
                 + "\n"
-                + "<coap://localhost:%s/meter> a emtr:ElectricMeter .\n"
-                + "    ssn:hasSubsystem <coap://localhost:%s/meter/amperage> ;\n"
-                + "    ssn:hasSubsystem <coap://localhost:%s/meter/voltage> ;\n"
-                + "    ssn:hasSubsystem <coap://localhost:%s/meter/power> ;\n"
-                + "    rdfs:label \"Electric_Meter_№_%s .\n"
+                + "<coap://${HOST}:${PORT}/meter> a emtr:ElectricMeter .\n"
+                + "    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/amperage> ;\n"
+                + "    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/voltage> ;\n"
+                + "    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/power> ;\n"
+                + "    rdfs:label \"Electric Meter #${PORT} .\n"
                 + "\n"
-                + "<coap://localhost:%s/meter/amperage> a ssn:Sensor ;\n"
+                + "<coap://${HOST}:${PORT}/meter/amperage> a ssn:Sensor ;\n"
                 + "    ssn:observes emtr:Amperage ;\n"
-                + "    ssncom:hasCommunicationEndpoint <coap://localhost:%s/amperage/obs> ;\n"
+                + "    ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/amperage/obs> ;\n"
                 + "\n"
-                + "<coap://localhost:%s/meter/voltage> a ssn:Sensor ;\n"
+                + "<coap://${HOST}:${PORT}/meter/voltage> a ssn:Sensor ;\n"
                 + "    ssn:observes emtr:Voltage ;\n"
-                + "    ssncom:hasCommunicationEndpoint <coap://localhost:%s/voltage/obs> ;    \n"
+                + "    ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/voltage/obs> ;    \n"
                 + "\n"
-                + "<coap://localhost:%s/meter/power> a ssn:Sensor ;\n"
+                + "<coap://${HOST}:${PORT}/meter/power> a ssn:Sensor ;\n"
                 + "    ssn:observes emtr:Power ;\n"
-                + "    ssncom:hasCommunicationEndpoint <coap://localhost:3131/power/obs> ;\n"
+                + "    ssncom:hasCommunicationEndpoint <coap://${HOST}:3131/meter/power/obs> ;\n"
                 + "    \n"
                 + "\n"
-                + "<coap://localhost:%s/meter/amperage/obs> a ssncom:CommunicationEndpoint ;\n"
+                + "<coap://${HOST}:${PORT}/meter/amperage/obs> a ssncom:CommunicationEndpoint ;\n"
                 + "    ssncoom:protocol \"COAP\" .\n"
-                + "<coap://localhost:%s/meter/voltage/obs> a ssncom:CommunicationEndpoint ;\n"
+                + "<coap://${HOST}:${PORT}/meter/voltage/obs> a ssncom:CommunicationEndpoint ;\n"
                 + "    ssncoom:protocol \"COAP\" .\n"
-                + "<coap://localhost:%s/meter/power/obs> a ssncom:CommunicationEndpoint ;\n"
-                + "    ssncoom:protocol \"COAP\" .").replaceAll("%s", Integer.toString(this.id));
-        getAttributes().setTitle(desc);
+                + "<coap://${HOST}:${PORT}/meter/power/obs> a ssncom:CommunicationEndpoint ;\n"
+                + "    ssncoom:protocol \"COAP\" .").replace("${PORT}", Integer.toString(this.port)).replace("${HOST}", conf.getHostName());
     }
 
     public String getDescription() {
-        return desc;
+        return desccription;
     }
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        exchange.setMaxAge(5);
-        exchange.respond(CONTENT, desc, TEXT_HTML);
+        exchange.respond(CONTENT, desccription, TEXT_HTML);
     }
 
 }

@@ -11,7 +11,6 @@ import ru.semiot.simulator.electricmeter.Meter;
 import ru.semiot.simulator.electricmeter.MeterConsumer;
 import ru.semiot.simulator.electricmeter.MeterMiddle;
 import ru.semiot.simulator.electricmeter.MeterOrigin;
-import ru.semiot.simulator.electricmeter.coap.CoAP;
 import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import static ru.semiot.simulator.electricmeter.utils.Generator.generateSerial;
 
@@ -19,35 +18,28 @@ import static ru.semiot.simulator.electricmeter.utils.Generator.generateSerial;
  *
  * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
-public class LauncherSimulation extends Agent {
+public class LauncherSimulation extends Agent{
 
-    private static boolean haveGUI = true;
     private static final ArrayList<Meter> agentsList = new ArrayList<>();
-    private static ru.semiot.simulator.electricmeter.coap.CoAP server;
-    public static boolean exit = false;
-   
+
     public static void main(String args[]) {
-        if(args.length>=1 && !args[0].isEmpty()){
-            if(conf.setConfigFromFile(args[0]))
+        if (args.length >= 1 && !args[0].isEmpty()) {
+            if (conf.setConfigFromFile(args[0])) {
                 System.out.println("Data loaded");
-            else
+            } else {
                 System.out.println("Error. Data didn't load!");
-        }
-        else {
-            System.out.println("Start with default data");
-            if(! (args.length>=1))
-                System.out.println("Not input string");
-            else{
-                System.out.println(args[0]);
             }
+        } else {
+            System.out.println("Start with default data");
         }
-        LauncherSimulation.startSimulator(false);
-        if(args.length>=2 && !args[1].isEmpty())
-            getTopology(args[1]);        
+        conf.writeConfigToFile("config.xml");
+        new Madkit(Madkit.Option.launchAgents.toString(), LauncherSimulation.class.getName() + "," + false + ",1");
+        if (args.length >= 2 && !args[1].isEmpty()) {
+            getTopology(args[1]);
+        }
     }
     @Override
     protected void activate() {
-        server = new CoAP();
         Meter meter = new MeterOrigin();
         meter.setMeter("mercury30", "mercury30", generateSerial());
 
@@ -74,29 +66,10 @@ public class LauncherSimulation extends Agent {
         }
         
         agentsList.stream().forEach((i) -> {
-            launchAgent(i, haveGUI);
+            launchAgent(i, false);
         });
     }
-
-    @Override
-    protected void live() {
-    }
-
-    @Override
-    protected void end() {
-
-    }
-
-    public static void startSimulator(boolean _haveGUI) {
-        exit = false;
-        haveGUI = _haveGUI;
-        new Madkit(Madkit.Option.launchAgents.toString(), LauncherSimulation.class.getName() + "," + false + ",1");
-    }
-
-    public static void stopSimulator() {
-        exit = true;
-    }
-
+    
     public static boolean getTopology(String filename) {
         String topology = "graph Topology{";
         String origin = "\"Origin\"";
@@ -106,7 +79,7 @@ public class LauncherSimulation extends Agent {
                 topology += "\n" + origin + "--" + "\"" + ((MeterMiddle) i).getOptionGroup() + "\";";
             }
             if (i instanceof MeterConsumer) {
-                topology += "\n" + "\"" + i.getGroup() + "\"" + "--" + "\"" + i.getRole() + k++ +"\";";
+                topology += "\n" + "\"" + i.getGroup() + "\"" + "--" + "\"" + i.getRole() + k++ + "\";";
             }
         }
         topology += "\n}";
@@ -121,5 +94,5 @@ public class LauncherSimulation extends Agent {
             ex.printStackTrace();
             return false;
         }
-    }    
+    }
 }

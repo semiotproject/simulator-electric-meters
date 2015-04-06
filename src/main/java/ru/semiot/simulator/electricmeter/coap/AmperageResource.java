@@ -6,7 +6,7 @@ import org.eclipse.californium.core.CoapResource;
 import static org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
 import static org.eclipse.californium.core.coap.MediaTypeRegistry.TEXT_PLAIN;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import ru.semiot.simulator.electricmeter.utils.StateData;
+import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 
 /**
  *
@@ -14,44 +14,53 @@ import ru.semiot.simulator.electricmeter.utils.StateData;
  */
 public class AmperageResource extends CoapResource {
 
-    private final int id;
     private final int port;
-
-    public AmperageResource(int port, int id) {
-        super("amperage");
-        this.id = id;
+    private double amperage;
+    private long timestamp;
+    private final String template = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .\n"
+                + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .\n"
+                + "@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .\n"
+                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .\n"
+                + "@prefix : <coap://${HOST}:${PORT}/meter/amperage#> .\n"
+                + "\n"
+                + ":${TIMESTAMP} a emtr:AmperageObservation ;\n"
+                + "    ssn:observationResultTime \"${DATETIME}\"^^xsd:dateTime ;\n"
+                + "    ssn:observedBy <coap://${HOST}:${PORT}/meter> ;\n"
+                + "    ssn:observationResult :${TIMESTAMP}-result .\n"
+                + "\n"
+                + ":${TIMESTAMP}-result a emtr:AmperageSensorOutput ;\n"
+                + "    ssn:isProducedBy <coap://${HOST}:${PORT}/meter> ;\n"
+                + "    ssn:hasValue :${TIMESTAMP}-resultvalue .\n"
+                + "\n"
+                + ":${TIMESTAMP}-resultvalue a emtr:AmperageValue ;\n"
+                + "    meter:hasQuantityValue \"${VALUE}\"^^xsd:float .";
+    public AmperageResource(int port) {
+        super("obs");
         this.port = port;
 
         setObservable(true);
-        getAttributes().setTitle("Endpoint for amperage testimonial ");
-        getAttributes().addResourceType("observe");
         getAttributes().setObservable();
-        setObserveType(org.eclipse.californium.core.coap.CoAP.Type.CON);
+    }
+
+    public void setValues(double amperage, long timestamp) {
+        this.amperage = amperage;
+        this.timestamp = timestamp;
     }
 
     private String toTurtle(double amperage, long timestamp) {
         String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date(timestamp * 1000));
-
-        return "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#>\n"
-                + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#>\n"
-                + "\n"
-                + String.format("<#amperage-%s-%d> a emtr:AmperageObservation ;\n", id, timestamp)
-                + String.format("    ssn:observationResultTime “%s”^^xsd:dateTime ;\n", date)
-                + String.format("    ssn:observedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:observationResult <#amperage-%s-%d-result> .\n", id, timestamp)
-                + "\n"
-                + String.format("<#amperage-%s-%d-results> a emtr:AmperageSensorOutput ;\n", id, timestamp)
-                + String.format("    ssn:isProducedBy <%s> ;\n", "localhost:" + Integer.toString(port))
-                + String.format("    ssn:hasValue <#amperage-%s-%d-resultvalue> .\n", id, timestamp)
-                + "\n"
-                + String.format("<#amperage-%s-%d-resultvalue> a emtr:AmperageValue ;\n", id, timestamp)
-                + String.format("    meter:hasQuantityValue “%.3f”^^xsd:float", amperage);
+        
+        return template
+                .replace("${TIMESTAMP}", String.valueOf(timestamp))
+                .replace("${DATETIME}", date)
+                .replace("${HOST}", conf.getHostName())
+                .replace("${PORT}", String.valueOf(this.port))
+                .replace("${VALUE}", String.valueOf(amperage));
     }
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        exchange.setMaxAge(5);
-        StateData t = TestimonialStore.getInstance().getData(id);
-        exchange.respond(CONTENT, toTurtle(t.getAmperage(), t.getTime()), TEXT_PLAIN);
+        exchange.respond(CONTENT, toTurtle(amperage, timestamp), TEXT_PLAIN);
     }
 }

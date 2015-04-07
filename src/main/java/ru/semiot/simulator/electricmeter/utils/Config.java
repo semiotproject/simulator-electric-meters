@@ -41,7 +41,7 @@ public class Config {
         data.put("DeviationVoltageOriginPersent", Integer.toString(5));
         data.put("AverageResistanceOnWire", Double.toString(7.5));
         data.put("DeviationResistanceOnWirePersent", Integer.toString(33));
-        data.put("CoapPort", Integer.toString(7000));
+        data.put("CoapPort", Integer.toString(60000));
         data.put("registerURI", "coap://localhost:3131/register");
         data.put("hostname", "localhost");
         port = Integer.valueOf(data.get("CoapPort"));

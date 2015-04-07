@@ -21,7 +21,6 @@ public class VoltageResource extends CoapResource {
             + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .\n"
             + "@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .\n"
             + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
-            + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .\n"
             + "@prefix : <coap://${HOST}:${PORT}/meter/voltage#> .\n"
             + "\n"
             + ":${TIMESTAMP} a emtr:VoltageObservation ;\n"

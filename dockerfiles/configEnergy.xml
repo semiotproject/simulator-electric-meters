@@ -8,8 +8,8 @@
 	<AverageResistanceOnWire>7.5</AverageResistanceOnWire>
 	<AverageVoltageOrigin>220.0</AverageVoltageOrigin>	
 	<DeviationResistanceOnWirePersent>33</DeviationResistanceOnWirePersent>
-	<NumberOfMiddleMeter>10</NumberOfMiddleMeter>
-	<NumberOfConsumerMeter>50</NumberOfConsumerMeter>
+	<NumberOfMiddleMeter>2</NumberOfMiddleMeter>
+	<NumberOfConsumerMeter>7</NumberOfConsumerMeter>
 	<StartDelay>60000</StartDelay>
 	<WorkDelay>30000</WorkDelay>
 	<DeviationVoltageOriginPersent>5</DeviationVoltageOriginPersent>

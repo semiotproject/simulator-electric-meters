@@ -71,7 +71,7 @@ public class MeterMiddle extends Meter {
                         5000);
             }
             if (noConsumer(requestData)) {
-                printString("I don't find consumer!");
+                //printString("I don't find consumer!");
                 sendReplyWithRole(m, new StringMessage("Haven't consumer"), getRole());
             } else {
                 double totalAmperage = 0;

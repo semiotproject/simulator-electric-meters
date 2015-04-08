@@ -69,6 +69,11 @@ public class LauncherSimulation extends Agent{
             launchAgent(i, false);
         });
     }
+	
+	@Override
+    protected void live() {
+		System.out.println("All meters started");
+	}
     
     public static boolean getTopology(String filename) {
         String topology = "graph Topology{";

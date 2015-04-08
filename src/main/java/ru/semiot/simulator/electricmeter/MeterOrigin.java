@@ -42,7 +42,7 @@ public class MeterOrigin extends Meter {
             }
 
             if (requestData == null) {
-                printString("I don't find consumer!");
+                //printString("I don't find consumer!");
             } else if (!requestData.isEmpty()) {
                 boolean createData = true;
                 for (Message i : requestData) {
@@ -56,7 +56,7 @@ public class MeterOrigin extends Meter {
                     }
                 }
                 if (createData) {
-                    printString("I don't find consumer!");
+                    //printString("I don't find consumer!");
                 } else {
                     //printString("Total consumed:");
                     //printString(data.toString());
@@ -64,7 +64,7 @@ public class MeterOrigin extends Meter {
                     //printString("All data consumered!");
                 }
             } else {
-                printString("I don't find consumer!");
+                //printString("I don't find consumer!");
             }
         }
     }

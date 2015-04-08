@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <config>
+	<StartPort>60000</StartPort>
+	<registerURI>coap://localhost:3131/register</registerURI>
+	<hostname>localhost</hostname>
+	<DeviationAmperageConsumerPersent>60</DeviationAmperageConsumerPersent>	
+	<AverageAmperageConsumer>6.0</AverageAmperageConsumer>	
 	<AverageResistanceOnWire>7.5</AverageResistanceOnWire>
-	<CoapPort>10000</CoapPort>
-	<DeviationAmperageConsumerPersent>60</DeviationAmperageConsumerPersent>
 	<AverageVoltageOrigin>220.0</AverageVoltageOrigin>	
-	<NumberOfMiddleMeter>2</NumberOfMiddleMeter>
 	<DeviationResistanceOnWirePersent>33</DeviationResistanceOnWirePersent>
-	<NumberOfConsumerMeter>30</NumberOfConsumerMeter>
-	<StartDelay>2000</StartDelay>
-	<WorkDelay>10000</WorkDelay>
-	<AverageAmperageConsumer>6.0</AverageAmperageConsumer>
+	<NumberOfMiddleMeter>10</NumberOfMiddleMeter>
+	<NumberOfConsumerMeter>50</NumberOfConsumerMeter>
+	<StartDelay>60000</StartDelay>
+	<WorkDelay>30000</WorkDelay>
 	<DeviationVoltageOriginPersent>5</DeviationVoltageOriginPersent>
-        <registerURI>coap://localhost:3131/register</registerURI>
 </config>

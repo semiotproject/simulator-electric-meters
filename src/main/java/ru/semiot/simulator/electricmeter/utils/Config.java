@@ -41,10 +41,10 @@ public class Config {
         data.put("DeviationVoltageOriginPersent", Integer.toString(5));
         data.put("AverageResistanceOnWire", Double.toString(7.5));
         data.put("DeviationResistanceOnWirePersent", Integer.toString(33));
-        data.put("CoapPort", Integer.toString(60000));
+        data.put("StartPort", Integer.toString(60000));
         data.put("registerURI", "coap://localhost:3131/register");
         data.put("hostname", "localhost");
-        port = Integer.valueOf(data.get("CoapPort"));
+        port = Integer.valueOf(data.get("StartPort"));
     }
 
     private void setAgents(int nbOfAgentsMiddle, int nbOfAgentsConsumer) {
@@ -68,7 +68,7 @@ public class Config {
 
     private void setServer(String CoapRegister, int CoapPort, String hostname) {
         data.put("registerURI", CoapRegister);
-        data.put("CoapPort", Integer.toString(CoapPort));
+        data.put("StartPort", Integer.toString(CoapPort));
         data.put("hostname", hostname);
         port = Integer.valueOf(data.get("CoapPort"));
     }
@@ -92,7 +92,7 @@ public class Config {
             for (String i : data.keySet()) {
                 data.put(i, doc.getElementsByTagName(i).item(0).getTextContent());
             }
-            port = Integer.valueOf(data.get("CoapPort"));
+            port = Integer.valueOf(data.get("StartPort"));
             return true;
         } catch (ParserConfigurationException | SAXException | IOException | DOMException e) {
             e.printStackTrace();
@@ -174,7 +174,7 @@ public class Config {
     }
 
     public int getCoapPort() {
-        return Integer.parseInt(data.get("CoapPort"));
+        return Integer.parseInt(data.get("StartPort"));
     }
 
     public int getFreePort() {

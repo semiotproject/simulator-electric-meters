@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <config>
-	<StartPort>60000</StartPort>
-	<registerURI>coap://localhost:3131/register</registerURI>
-	<hostname>localhost</hostname>
+	<StartPort>40000</StartPort>
+	<registerURI>coap://10.0.0.7:3131/register</registerURI>
+	<hostname>10.0.0.11</hostname>
 	<DeviationAmperageConsumerPersent>60</DeviationAmperageConsumerPersent>	
 	<AverageAmperageConsumer>6.0</AverageAmperageConsumer>	
 	<AverageResistanceOnWire>7.5</AverageResistanceOnWire>

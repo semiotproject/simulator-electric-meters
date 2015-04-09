@@ -39,7 +39,7 @@ public class DescriptionResource extends CoapResource {
                 + "\n"
                 + "<coap://${HOST}:${PORT}/meter/power> a ssn:Sensor ;\n"
                 + "    ssn:observes emtr:Power ;\n"
-                + "    ssncom:hasCommunicationEndpoint <coap://${HOST}:3131/meter/power/obs> .\n"
+                + "    ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/power/obs> .\n"
                 + "\n"
                 + "<coap://${HOST}:${PORT}/meter/amperage/obs> a ssncom:CommunicationEndpoint ;\n"
                 + "    ssncom:protocol \"COAP\" .\n"

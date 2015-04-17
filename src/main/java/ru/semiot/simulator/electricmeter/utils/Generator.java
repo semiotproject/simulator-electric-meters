@@ -2,7 +2,7 @@ package ru.semiot.simulator.electricmeter.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import static ru.semiot.simulator.electricmeter.utils.SimulatorConfig.conf;
 
 /**
  *

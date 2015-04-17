@@ -1,0 +1,29 @@
+@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
+@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ssncom: <http://purl.org/NET/ssnext/communication#> .
+
+<coap://${HOST}:${PORT}/meter> a emtr:ElectricMeter ;
+    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/amperage> ;
+    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/voltage> ;
+    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/power> ;
+    rdfs:label "Electric Meter #${PORT}" .
+
+<coap://${HOST}:${PORT}/meter/amperage> a ssn:Sensor ;
+    ssn:observes emtr:Amperage ;
+    ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/amperage/obs> .
+
+<coap://${HOST}:${PORT}/meter/voltage> a ssn:Sensor ;
+    ssn:observes emtr:Voltage ;
+    ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/voltage/obs> .
+
+<coap://${HOST}:${PORT}/meter/power> a ssn:Sensor ;
+    ssn:observes emtr:Power ;
+    ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/power/obs> .
+
+<coap://${HOST}:${PORT}/meter/amperage/obs> a ssncom:CommunicationEndpoint ;
+    ssncom:protocol "COAP" .
+<coap://${HOST}:${PORT}/meter/voltage/obs> a ssncom:CommunicationEndpoint ;
+    ssncom:protocol "COAP" .
+<coap://${HOST}:${PORT}/meter/power/obs> a ssncom:CommunicationEndpoint ;
+    ssncom:protocol "COAP" .

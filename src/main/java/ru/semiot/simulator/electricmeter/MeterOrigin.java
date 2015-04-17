@@ -3,8 +3,8 @@ package ru.semiot.simulator.electricmeter;
 import java.util.List;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import ru.semiot.simulator.electricmeter.utils.Generator;
+import static ru.semiot.simulator.electricmeter.utils.SimulatorConfig.conf;
 import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**

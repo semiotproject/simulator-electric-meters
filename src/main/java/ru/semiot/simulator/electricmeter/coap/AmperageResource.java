@@ -1,12 +1,14 @@
 package ru.semiot.simulator.electricmeter.coap;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.californium.core.CoapResource;
 import static org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
 import static org.eclipse.californium.core.coap.MediaTypeRegistry.TEXT_PLAIN;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import static ru.semiot.simulator.electricmeter.utils.SimulatorConfig.conf;
 
 /**
  *
@@ -17,29 +19,21 @@ public class AmperageResource extends CoapResource {
     private final int port;
     private double amperage;
     private long timestamp;
-    private final String template = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .\n"
-                + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .\n"
-                + "@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .\n"
-                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
-                + "@prefix : <coap://${HOST}:${PORT}/meter/amperage#> .\n"
-                + "\n"
-                + ":${TIMESTAMP} a emtr:AmperageObservation ;\n"
-                + "    ssn:observationResultTime \"${DATETIME}\"^^xsd:dateTime ;\n"
-                + "    ssn:observedBy <coap://${HOST}:${PORT}/meter> ;\n"
-                + "    ssn:observationResult :${TIMESTAMP}-result .\n"
-                + "\n"
-                + ":${TIMESTAMP}-result a emtr:AmperageSensorOutput ;\n"
-                + "    ssn:isProducedBy <coap://${HOST}:${PORT}/meter> ;\n"
-                + "    ssn:hasValue :${TIMESTAMP}-resultvalue .\n"
-                + "\n"
-                + ":${TIMESTAMP}-resultvalue a emtr:AmperageValue ;\n"
-                + "    meter:hasQuantityValue \"${VALUE}\"^^xsd:float .";
+    private final String template;
+
     public AmperageResource(int port) {
         super("obs");
         this.port = port;
 
         setObservable(true);
         getAttributes().setObservable();
+
+        try {
+            this.template = IOUtils.toString(AmperageResource.class.getResourceAsStream(
+                    "/ru/semiot/simulator/electricmeter/amperage.ttl"));
+        } catch (IOException ex) {
+            throw new IllegalArgumentException(ex);
+        }
     }
 
     public void setValues(double amperage, long timestamp) {
@@ -49,7 +43,7 @@ public class AmperageResource extends CoapResource {
 
     private String toTurtle(double amperage, long timestamp) {
         String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date(timestamp * 1000));
-        
+
         return template
                 .replace("${TIMESTAMP}", String.valueOf(timestamp))
                 .replace("${DATETIME}", date)

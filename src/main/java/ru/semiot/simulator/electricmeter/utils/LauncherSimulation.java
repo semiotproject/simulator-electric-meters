@@ -11,31 +11,22 @@ import ru.semiot.simulator.electricmeter.Meter;
 import ru.semiot.simulator.electricmeter.MeterConsumer;
 import ru.semiot.simulator.electricmeter.MeterMiddle;
 import ru.semiot.simulator.electricmeter.MeterOrigin;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
 import static ru.semiot.simulator.electricmeter.utils.Generator.generateSerial;
+import static ru.semiot.simulator.electricmeter.utils.SimulatorConfig.conf;
 
 /**
  *
  * @author Daniil Garayzuev <garayzuev@gmail.com>
  */
 public class LauncherSimulation extends Agent{
-
+    public static int port = conf.getCoapPort();
+    public static final String configPath = new File("cofigEnergy.properties").getAbsolutePath();
     private static final ArrayList<Meter> agentsList = new ArrayList<>();
 
     public static void main(String args[]) {
-        if (args.length >= 1 && !args[0].isEmpty()) {
-            if (conf.setConfigFromFile(args[0])) {
-                System.out.println("Data loaded");
-            } else {
-                System.out.println("Error. Data didn't load!");
-            }
-        } else {
-            System.out.println("Start with default data");
-        }
-        conf.writeConfigToFile("config.xml");
         new Madkit(Madkit.Option.launchAgents.toString(), LauncherSimulation.class.getName() + "," + false + ",1");
-        if (args.length >= 2 && !args[1].isEmpty()) {
-            getTopology(args[1]);
+        if (args.length >= 1 && !args[0].isEmpty()) {
+            getTopology(args[0]);
         }
     }
     @Override

@@ -1,0 +1,17 @@
+@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .
+@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .
+@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <coap://${HOST}:${PORT}/meter/amperage#> .
+
+:${TIMESTAMP} a emtr:AmperageObservation ;
+    ssn:observationResultTime "${DATETIME}"^^xsd:dateTime ;
+    ssn:observedBy <coap://${HOST}:${PORT}/meter> ;
+    ssn:observationResult :${TIMESTAMP}-result .
+
+:${TIMESTAMP}-result a emtr:AmperageSensorOutput ;
+    ssn:isProducedBy <coap://${HOST}:${PORT}/meter> ;
+    ssn:hasValue :${TIMESTAMP}-resultvalue .
+
+:${TIMESTAMP}-resultvalue a emtr:AmperageValue ;
+    meter:hasQuantityValue "${VALUE}"^^xsd:float .

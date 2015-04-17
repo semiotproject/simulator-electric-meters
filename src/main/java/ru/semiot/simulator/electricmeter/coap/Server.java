@@ -6,7 +6,7 @@ import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import static ru.semiot.simulator.electricmeter.utils.SimulatorConfig.conf;
 import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**

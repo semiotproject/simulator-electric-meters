@@ -15,10 +15,10 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/jre
 
 RUN git clone https://github.com/semiotproject/simulator-electric-meters.git  APP_DIR
 
-ADD configEnergy.xml  /root/APP_DIR/
+ADD configEnergy.properties  /root/APP_DIR/src/main/resources/
 
 WORKDIR APP_DIR
 
 RUN mvn clean package -DskipTests=true
 
-CMD java -jar target/$APP_JAR configEnergy.xml
+CMD java -jar target/$APP_JAR

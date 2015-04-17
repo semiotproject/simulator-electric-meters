@@ -3,7 +3,7 @@ package ru.semiot.simulator.electricmeter;
 import madkit.kernel.AbstractAgent;
 import madkit.kernel.Agent;
 import ru.semiot.simulator.electricmeter.coap.Server;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import static ru.semiot.simulator.electricmeter.utils.LauncherSimulation.port;
 import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
@@ -32,7 +32,7 @@ public abstract class Meter extends Agent {
 
         createGroupIfAbsent(EnergyOrganization.COMMUNITY, getGroup(), true, null);
         requestRole(EnergyOrganization.COMMUNITY, getGroup(), getRole(), null);
-        server = new Server(conf.getFreePort());
+        server = new Server(port++);
         server.start();
         //printString("I am meter: serial is " + getSerialNumber() + " of " + group + " with role " + role + "!\n");
     }

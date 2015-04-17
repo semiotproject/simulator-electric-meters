@@ -1,12 +1,14 @@
 package ru.semiot.simulator.electricmeter.coap;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.californium.core.CoapResource;
 import static org.eclipse.californium.core.coap.CoAP.ResponseCode.CONTENT;
 import static org.eclipse.californium.core.coap.MediaTypeRegistry.TEXT_PLAIN;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import static ru.semiot.simulator.electricmeter.utils.Config.conf;
+import static ru.semiot.simulator.electricmeter.utils.SimulatorConfig.conf;
 
 /**
  *
@@ -17,23 +19,7 @@ public class VoltageResource extends CoapResource {
     private final int port;
     private double voltage;
     private long timestamp;
-    private final String template = "@prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .\n"
-            + "@prefix meter: <http://purl.org/NET/ssnext/meters/core#> .\n"
-            + "@prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .\n"
-            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
-            + "@prefix : <coap://${HOST}:${PORT}/meter/voltage#> .\n"
-            + "\n"
-            + ":${TIMESTAMP} a emtr:VoltageObservation ;\n"
-            + "    ssn:observationResultTime \"${DATETIME}\"^^xsd:dateTime ;\n"
-            + "    ssn:observedBy <coap://${HOST}:${PORT}/meter> ;\n"
-            + "    ssn:observationResult :${TIMESTAMP}-result .\n"
-            + "\n"
-            + ":${TIMESTAMP}-result a emtr:VoltageSensorOutput ;\n"
-            + "    ssn:isProducedBy <coap://${HOST}:${PORT}/meter> ;\n"
-            + "    ssn:hasValue :${TIMESTAMP}-resultvalue .\n"
-            + "\n"
-            + ":${TIMESTAMP}-resultvalue a emtr:VoltageValue ;\n"
-            + "    meter:hasQuantityValue \"${VALUE}\"^^xsd:float .";
+    private final String template;
 
     public VoltageResource(int port) {
         super("obs");
@@ -41,6 +27,13 @@ public class VoltageResource extends CoapResource {
 
         setObservable(true);
         getAttributes().setObservable();
+
+        try {
+            this.template = IOUtils.toString(VoltageResource.class.getResourceAsStream(
+                    "/ru/semiot/simulator/electricmeter/voltage.ttl"));
+        } catch (IOException ex) {
+            throw new IllegalArgumentException(ex);
+        }
     }
 
     public void setValues(double voltage, long timestamp) {

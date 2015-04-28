@@ -1,5 +1,21 @@
 # simulator-electric-meters
 
+How to launch the application using [Docker](https://www.docker.com/):
+
+* Pull the image:
+```bash
+sudo docker pull semiot/simulator-electric-meters
+```
+* Run the container:
+```bash
+sudo docker run \
+-i -t \
+-v /semiot-platform/simulator-electric-meters:/semiot-platform/simulator-electric-meters \
+--expose=40000-41000/udp \
+semiot/simulator-electric-meters
+```
+
+
 We use xml to manage application with properties:
 * `NumberOfMiddleMeter` - sets number of substations;
 * `NumberOfConsumerMeter` - sets number of final consumer;
@@ -15,3 +31,4 @@ We use xml to manage application with properties:
 * `registerURI` - the address for registration of meters
 * `hostname`
 Run app and open `coap://[$HOSTNAME]:[$START_PORT..$START_PORT + $METERS_COUNT]/.well-known/core` with [Copper](https://addons.mozilla.org/ru/firefox/addon/copper-270430/) after `StartDelay` ms. 
+

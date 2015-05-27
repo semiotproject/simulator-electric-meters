@@ -1,9 +1,9 @@
 package ru.semiot.simulator.electricmeter;
 
+import java.util.List;
 import madkit.kernel.AbstractAgent;
 import madkit.kernel.Agent;
 import ru.semiot.simulator.electricmeter.coap.Server;
-import static ru.semiot.simulator.electricmeter.utils.LauncherSimulation.port;
 import ru.semiot.simulator.electricmeter.utils.StateData;
 
 /**
@@ -19,6 +19,10 @@ public abstract class Meter extends Agent {
     private String group;
     private String role;
     private Server server;
+    private int port;
+
+    private List<String> nextMeter;
+    private String prevMeter;
 
     public void setMeter(String _type, String _modelType, String _serialNumber) {
         modelType = _modelType;
@@ -28,17 +32,19 @@ public abstract class Meter extends Agent {
 
     @Override
     protected void activate() {
-        //pause(LauncherSimulation.getPause());
-
         createGroupIfAbsent(EnergyOrganization.COMMUNITY, getGroup(), true, null);
         requestRole(EnergyOrganization.COMMUNITY, getGroup(), getRole(), null);
-        server = new Server(port++);
-        server.start();
-        //printString("I am meter: serial is " + getSerialNumber() + " of " + group + " with role " + role + "!\n");
+        server = new Server(port);
+        server.start();        
     }
 
     protected void setData() {
         server.update(null, data);
+    }
+
+    public void setTopology(String prev, List<String> next) {
+        this.prevMeter = prev;
+        this.nextMeter = next;
     }
 
     @Override
@@ -57,14 +63,6 @@ public abstract class Meter extends Agent {
         if (logger != null) {
             logger.info("I am done");
         }
-    }
-
-    void printString(String str) {
-        /*if (logger != null) {
-         logger.info(str);
-         }*/
-        System.out.print(str);
-
     }
 
     public String getType() {
@@ -97,5 +95,13 @@ public abstract class Meter extends Agent {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 }

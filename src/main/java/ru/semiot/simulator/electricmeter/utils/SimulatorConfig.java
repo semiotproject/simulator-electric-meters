@@ -26,7 +26,7 @@ public interface SimulatorConfig extends Config {
     public int getNbOfAgentsMiddle();
 
     @DefaultValue("7")
-    @Key("NumberOfConsumerMeter")
+    @Key("NumberOfConsumerMeters")
     public int getNbOfAgentsConsumer();
 
     @DefaultValue("3000")

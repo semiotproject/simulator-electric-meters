@@ -2,6 +2,7 @@
 @prefix meter: <http://purl.org/NET/ssnext/meters/core#> .
 @prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix om: <http://purl.org/ifgi/om#> .
 @prefix : <coap://${HOST}:${PORT}/meter/power#> .
 
 :${TIMESTAMP} a emtr:PowerObservation ;
@@ -14,4 +15,5 @@
     ssn:hasValue :${TIMESTAMP}-resultvalue .
 
 :${TIMESTAMP}-resultvalue a emtr:PowerValue ;
-    meter:hasQuantityValue "${VALUE}"^^xsd:float .
+    meter:hasQuantityValue "${VALUE}"^^xsd:float ;
+	om:hasQuantityUnitOfMeasurement <http://purl.oclc.org/NET/muo/ucum/unit/power/Watt> .

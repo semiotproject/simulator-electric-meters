@@ -42,7 +42,7 @@ public class VoltageResource extends CoapResource {
     }
 
     private String toTurtle(double voltage, long timestamp) {
-        String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date(timestamp * 1000));
+        String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").format(new Date(timestamp * 1000));
 
         return template
                 .replace("${TIMESTAMP}", String.valueOf(timestamp))

@@ -4,7 +4,7 @@
 
 * Pull the image:
 ```bash
-sudo docker pull semiot/simulator-heat-meters
+sudo docker pull semiot/simulator-electric-meters
 ```
 * Run the container:
 ```bash

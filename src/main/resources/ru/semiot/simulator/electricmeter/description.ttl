@@ -2,6 +2,9 @@
 @prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix ssncom: <http://purl.org/NET/ssnext/communication#> .
+@prefix qudt-quantity: <http://qudt.org/1.1/vocab/quantity#> .
+@prefix qudt-unit: <http://qudt.org/1.1/vocab/unit#> .
+@prefix qudt: <http://www.qudt.org/qudt/owl/1.0.0/qudt/#> .
 
 <coap://${HOST}:${PORT}/meter> a emtr:ElectricMeter ;
     ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/amperage> ;
@@ -9,16 +12,40 @@
     ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/power> ;
     rdfs:label "Electric Meter #${PORT}" .
 
-<coap://${HOST}:${PORT}/meter/amperage> a ssn:Sensor ;
-    ssn:observes emtr:Amperage ;
+<coap://${HOST}:${PORT}/meter/amperage> a ssn:SensingDevice ;
+    ssn:observes qudt-quantity:ElectricCurrent ;
+	ssn:hasMeasurementCapability [
+        a ssn:MeasurementCapability ;
+        ssn:forProperty qudt-quantity:ElectricCurrent ;
+        ssn:hasMeasurementProperty [
+            a qudt:Unit ;
+            ssn:hasValue qudt-unit:Ampere
+        ]
+    ] ;
     ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/amperage/obs> .
 
-<coap://${HOST}:${PORT}/meter/voltage> a ssn:Sensor ;
-    ssn:observes emtr:Voltage ;
+<coap://${HOST}:${PORT}/meter/voltage> a ssn:SensingDevice ;
+    ssn:observes qudt-quantity:ElectromotiveForce ;
+	ssn:hasMeasurementCapability [
+        a ssn:MeasurementCapability ;
+        ssn:forProperty qudt-quantity:ElectromotiveForce ;
+        ssn:hasMeasurementProperty [
+            a qudt:Unit ;
+            ssn:hasValue qudt-unit:Volt
+        ]
+    ] ;
     ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/voltage/obs> .
 
-<coap://${HOST}:${PORT}/meter/power> a ssn:Sensor ;
-    ssn:observes emtr:Power ;
+<coap://${HOST}:${PORT}/meter/power> a ssn:SensingDevice ;
+    ssn:observes qudt-quantity:Power ;
+	ssn:hasMeasurementCapability [
+        a ssn:MeasurementCapability ;
+        ssn:forProperty qudt-quantity:Power ;
+        ssn:hasMeasurementProperty [
+            a qudt:Unit ;
+            ssn:hasValue qudt-unit:Watt
+        ]
+    ] ;
     ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/power/obs> .
 
 <coap://${HOST}:${PORT}/meter/amperage/obs> a ssncom:CommunicationEndpoint ;

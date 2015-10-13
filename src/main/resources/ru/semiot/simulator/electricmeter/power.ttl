@@ -2,18 +2,19 @@
 @prefix meter: <http://purl.org/NET/ssnext/meters/core#> .
 @prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix om: <http://purl.org/ifgi/om#> .
+@prefix qudt: <http://www.qudt.org/qudt/owl/1.0.0/qudt/#> .
+@prefix qudt-quantity: <http://qudt.org/1.1/vocab/quantity#> .
 @prefix : <coap://${HOST}:${PORT}/meter/power#> .
 
-:${TIMESTAMP} a emtr:PowerObservation ;
+:${TIMESTAMP} a ssn:Observation ;
+	ssn:observedProperty qudt-quantity:Power ;
     ssn:observationResultTime "${DATETIME}"^^xsd:dateTime ;
     ssn:observedBy <coap://${HOST}:${PORT}/meter> ;
     ssn:observationResult :${TIMESTAMP}-result .
 
-:${TIMESTAMP}-result a emtr:PowerSensorOutput ;
+:${TIMESTAMP}-result a ssn:SensorOutput ;
     ssn:isProducedBy <coap://${HOST}:${PORT}/meter> ;
     ssn:hasValue :${TIMESTAMP}-resultvalue .
 
-:${TIMESTAMP}-resultvalue a emtr:PowerValue ;
-    meter:hasQuantityValue "${VALUE}"^^xsd:float ;
-	om:hasQuantityUnitOfMeasurement <http://purl.oclc.org/NET/muo/ucum/unit/power/Watt> .
+:${TIMESTAMP}-resultvalue a qudt:QuantityValue ;
+    qudt:quantityValue "${VALUE}"^^xsd:double .	

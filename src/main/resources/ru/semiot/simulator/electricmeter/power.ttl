@@ -7,7 +7,7 @@
 @prefix : <coap://${HOST}:${PORT}/meter/power#> .
 
 :${TIMESTAMP} a ssn:Observation ;
-	ssn:observedProperty qudt-quantity:Power ;
+	ssn:observedProperty qudt-quantity:ElectricPower ;
     ssn:observationResultTime "${DATETIME}"^^xsd:dateTime ;
     ssn:observedBy <coap://${HOST}:${PORT}/meter> ;
     ssn:observationResult :${TIMESTAMP}-result .

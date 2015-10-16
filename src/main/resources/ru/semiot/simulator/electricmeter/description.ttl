@@ -19,8 +19,11 @@
         ssn:forProperty qudt-quantity:ElectricCurrent ;
         ssn:hasMeasurementProperty [
             a qudt:Unit ;
-            ssn:hasValue qudt-unit:Ampere
-        ]
+            ssn:hasValue [
+                a qudt:Quantity ;
+                ssn:hasValue qudt-unit:Ampere ;
+            ];
+        ] ;
     ] ;
     ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/amperage/obs> .
 
@@ -31,8 +34,11 @@
         ssn:forProperty qudt-quantity:ElectromotiveForce ;
         ssn:hasMeasurementProperty [
             a qudt:Unit ;
-            ssn:hasValue qudt-unit:Volt
-        ]
+            ssn:hasValue [
+                a qudt:Quantity ;
+                ssn:hasValue qudt-unit:Volt ; 
+            ] ;
+        ] ;
     ] ;
     ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/voltage/obs> .
 
@@ -43,8 +49,11 @@
         ssn:forProperty qudt-quantity:ElectricPower ;
         ssn:hasMeasurementProperty [
             a qudt:Unit ;
-            ssn:hasValue qudt-unit:Watt
-        ]
+            ssn:hasValue [ 
+                a qudt:Quantity ;
+                ssn:hasValue qudt-unit:Watt ; 
+            ] ;
+        ] ;
     ] ;
     ssncom:hasCommunicationEndpoint <coap://${HOST}:${PORT}/meter/power/obs> .
 

@@ -5,12 +5,14 @@
 @prefix qudt-quantity: <http://qudt.org/1.1/vocab/quantity#> .
 @prefix qudt-unit: <http://qudt.org/1.1/vocab/unit#> .
 @prefix qudt: <http://www.qudt.org/qudt/owl/1.0.0/qudt/#> .
+@prefix saref: <http://ontology.tno.nl/saref#> .
 
 <coap://${HOST}:${PORT}/meter> a emtr:ElectricMeter ;
     ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/amperage> ;
     ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/voltage> ;
     ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/power> ;
-    rdfs:label "Electric Meter #${PORT}" .
+    rdfs:label "Electric Meter #${PORT}" ;
+    saref:hasState saref:OnState .
 
 <coap://${HOST}:${PORT}/meter/amperage> a ssn:SensingDevice ;
     ssn:observes qudt-quantity:ElectricCurrent ;

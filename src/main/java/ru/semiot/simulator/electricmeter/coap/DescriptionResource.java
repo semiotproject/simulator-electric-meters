@@ -15,28 +15,29 @@ import static ru.semiot.simulator.electricmeter.utils.SimulatorConfig.conf;
 public class DescriptionResource extends CoapResource {
 
     private final int port;
-    private final String desccription;
+    private String description;
 
     public DescriptionResource(int port) {
         super("meter");
         this.port = port;
         try {
-            this.desccription = IOUtils.toString(DescriptionResource.class.getResourceAsStream(
-                    "/ru/semiot/simulator/electricmeter/description.ttl"));
+            this.description = IOUtils.toString(DescriptionResource.class.getResourceAsStream(
+                    "/ru/semiot/simulator/electricmeter/description.ttl"));			
         } catch (IOException ex) {
             throw new IllegalArgumentException(ex);
         }
+		this.description = this.description
+                .replace("${PORT}", Integer.toString(this.port))
+                .replace("${HOST}", conf.getHostName());		
     }
 
     public String getDescription() {
-        return desccription
-                .replace("${PORT}", Integer.toString(this.port))
-                .replace("${HOST}", conf.getHostName());
+        return description;
     }
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        exchange.respond(CONTENT, desccription, TEXT_HTML);
+        exchange.respond(CONTENT, description, TEXT_HTML);
     }
 
 }

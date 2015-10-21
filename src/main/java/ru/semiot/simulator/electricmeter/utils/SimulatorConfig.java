@@ -9,7 +9,7 @@ import org.aeonbits.owner.ConfigFactory;
  */
 @Config.LoadPolicy(Config.LoadType.FIRST)
 @Config.Sources({
-    "file:/semiot-platform/simulator-electric-meters/configEnergy.properties"
+    "file:/semiot-platform/simulator-electric-meters/config.properties"
 })
 public interface SimulatorConfig extends Config {
 

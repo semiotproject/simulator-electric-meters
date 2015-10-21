@@ -3,7 +3,7 @@
 @prefix ssn: <http://purl.oclc.org/NET/ssnx/ssn#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://www.qudt.org/qudt/owl/1.0.0/qudt/#> .
-@prefix qudt-quantity: <http://qudt.org/1.1/vocab/quantity#> .
+@prefix qudt-quantity: <http://qudt.org/vocab/quantity#> .
 @prefix : <coap://${HOST}:${PORT}/meter/power#> .
 
 :${TIMESTAMP} a ssn:Observation ;

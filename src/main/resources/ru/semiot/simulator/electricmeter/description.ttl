@@ -2,8 +2,8 @@
 @prefix emtr: <http://purl.org/NET/ssnext/electricmeters#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix ssncom: <http://purl.org/NET/ssnext/communication#> .
-@prefix qudt-quantity: <http://qudt.org/1.1/vocab/quantity#> .
-@prefix qudt-unit: <http://qudt.org/1.1/vocab/unit#> .
+@prefix qudt-quantity: <http://qudt.org/vocab/quantity#> .
+@prefix qudt-unit: <http://qudt.org/vocab/unit#> .
 @prefix qudt: <http://www.qudt.org/qudt/owl/1.0.0/qudt/#> .
 @prefix saref: <http://ontology.tno.nl/saref#> .
 

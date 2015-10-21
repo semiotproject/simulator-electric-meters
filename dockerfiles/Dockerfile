@@ -14,6 +14,11 @@ RUN apt-get update && apt-get install -y maven git
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/jre
 
+#
+# No cache workaround.
+#
+ADD build.number /root/build.number
+
 RUN git clone https://github.com/semiotproject/simulator-electric-meters.git  $APP_DIR
 
 RUN mkdir -p $APP_CONF

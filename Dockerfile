@@ -20,4 +20,4 @@ WORKDIR $APP_DIR
 
 ADD target/$APP_JAR $APP_JAR
 
-CMD java -jar target/$APP_JAR
+CMD java -jar $APP_JAR

@@ -8,7 +8,7 @@ sudo docker pull semiot/simulator-electric-meters
 ```
 * Run the container:
 ```bash
-sudo docker run -i -t -v /semiot-platform/simulator-electric-meters:/semiot-platform/simulator-electric-meters -p 40000-41000/udp semiot/simulator-electric-meters
+sudo docker run -i -t -v /semiot-platform/simulator-electric-meters:/semiot-platform/simulator-electric-meters -p 40000-41000:40000-41000/udp semiot/simulator-electric-meters
 ```
 
 ## How to check simulators are working:

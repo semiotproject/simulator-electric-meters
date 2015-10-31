@@ -8,9 +8,9 @@
 @prefix saref: <http://ontology.tno.nl/saref#> .
 
 <coap://${HOST}:${PORT}/meter> a emtr:ElectricMeter ;
-    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/amperage> ;
-    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/voltage> ;
-    ssn:hasSubsystem <coap://${HOST}:${PORT}/meter/power> ;
+    ssn:hasSubSystem <coap://${HOST}:${PORT}/meter/amperage> ;
+    ssn:hasSubSystem <coap://${HOST}:${PORT}/meter/voltage> ;
+    ssn:hasSubSystem <coap://${HOST}:${PORT}/meter/power> ;
     rdfs:label "Electric Meter #${PORT}" ;
     saref:hasState saref:OnState .
 

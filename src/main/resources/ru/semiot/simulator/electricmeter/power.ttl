@@ -9,7 +9,7 @@
 :${TIMESTAMP} a ssn:Observation ;
 	ssn:observedProperty qudt-quantity:ElectricPower ;
     ssn:observationResultTime "${DATETIME}"^^xsd:dateTime ;
-    ssn:observedBy <coap://${HOST}:${PORT}/meter> ;
+    ssn:observedBy <coap://${HOST}:${PORT}/meter/power> ;
     ssn:observationResult :${TIMESTAMP}-result .
 
 :${TIMESTAMP}-result a ssn:SensorOutput ;

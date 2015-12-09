@@ -4,7 +4,7 @@
 @prefix ssncom: <http://purl.org/NET/ssnext/communication#> .
 @prefix qudt-quantity: <http://qudt.org/vocab/quantity#> .
 @prefix qudt-unit: <http://qudt.org/vocab/unit#> .
-@prefix qudt: <http://www.qudt.org/qudt/owl/1.0.0/qudt/#> .
+@prefix qudt: <http://qudt.org/schema/qudt#> .
 @prefix saref: <http://ontology.tno.nl/saref#> .
 
 <coap://${HOST}:${PORT}/meter> a emtr:ElectricMeter ;

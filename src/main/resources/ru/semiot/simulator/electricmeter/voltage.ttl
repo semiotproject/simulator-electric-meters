@@ -9,11 +9,11 @@
 :${TIMESTAMP} a ssn:Observation ;
 	ssn:observedProperty qudt-quantity:ElectromotiveForce ;
 	ssn:observationResultTime "${DATETIME}"^^xsd:dateTime ;
-	ssn:observedBy <coap://${HOST}:${PORT}/meter> ;
+	ssn:observedBy <coap://${HOST}:${PORT}/meter/voltage> ;
 	ssn:observationResult :${TIMESTAMP}-result .
 
 :${TIMESTAMP}-result a ssn:SensorOutput ;
-	ssn:isProducedBy <coap://${HOST}:${PORT}/meter> ;
+	ssn:isProducedBy <coap://${HOST}:${PORT}/meter/voltage> ;
 	ssn:hasValue :${TIMESTAMP}-resultvalue .
 
 :${TIMESTAMP}-resultvalue a qudt:QuantityValue ;

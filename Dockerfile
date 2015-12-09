@@ -14,7 +14,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/jre
 
 RUN mkdir -p $APP_CONF
 
-ADD configEnergy.properties  /semiot-platform/simulator-electric-meters/
+ADD config.properties  /semiot-platform/simulator-electric-meters/
 
 WORKDIR $APP_DIR
 
